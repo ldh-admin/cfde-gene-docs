@@ -3,7 +3,7 @@
   "info":       {
     "version":     "1.0",
     "title":       "Common Fund Data Ecosystem Gene Regulation Linked Data Hub",
-    "description": "[**OpenAPI Specification (OAS)**](https://github.com/OAI/OpenAPI-Specification) for the ***CFDE Gene Regulation Linked Data Hub REST API Design***.\n\n* Contains generic information about the **Linked Data Hub** API.\n* Provides information about payload, response codes, modifiers, core fields in the response, etc\n* Responses will be structured JSON-LD, with natural hierarchical organization.\n\n**NOTE**: Response description of several endpoints in this documentation refer to a dynamic property name `entType`. It is one of the currently supported entity types in LDH. \nEntity content will vary depending on the `type` path parameter used in the lookup. Detailed descriptions of the different entities supported by CFDE Gene LDH and the schemas for their `entContent` is available in the ***Entities*** tab of this documentation.\n\n## Disclaimer\n\n* **BETA RELEASE.** \n\t* This version of the CFDE Gene LDH service and content is BETA. Additional features are under development. \n\t* Content and representations are subject to change.\n\t* Service and content addresses are subject to change.\n\t* Service and content IRIs are not permalinks and are subject to change.\n\t\n* The OAS3 Spec is intended mainly for documentation and description of the API, interoperability development, general assessment, and illustration.  ",
+    "description": "[**OpenAPI Specification (OAS)**](https://github.com/OAI/OpenAPI-Specification) for the ***CFDE Gene Regulation Linked Data Hub REST API Design***.\n\n* Contains generic information about the **CFDE Gene Regulation Linked Data Hub** API.\n* Provides information about payload, response codes, modifiers, core fields in the response, etc\n* Responses will be structured JSON-LD, with natural hierarchical organization.\n\n**NOTE**: Response description of several endpoints in this documentation refer to a dynamic property name `entType`. It is one of the currently supported entity types in LDH. \nEntity content will vary depending on the `entType` path parameter used in the lookup. Detailed descriptions of the different entities supported by CFDE Gene LDH and the schemas for their `entContent` is available in the ***Entities*** tab of this documentation.\n\n## Disclaimer\n\n* **BETA RELEASE.** \n\t* This version of the CFDE Gene LDH service and content is BETA. Additional features are under development. \n\t* Content and representations are subject to change.\n\t* Service and content addresses are subject to change.\n\t* Service and content IRIs are not permalinks and are subject to change.\n\t\n* The OAS3 Spec is intended mainly for documentation and description of the API, interoperability development, general assessment, and illustration.  ",
     "contact":     {
       "name":  "CFDE Informatics Team at Baylor College of Medicine",
       "url":   "https://genboree.org/cfde-gene-dev/",
@@ -173,7 +173,7 @@
                                       }
                                     }
                                   ],
-                                  "description": "**Type** of entity supported by LDH. The **key** `{entType}` will be one of the currently supported entity types:\n*Variant*, *Gene*,  *AlleleFunctionalImpactStatement*, *AlleleMolecularConsequenceStatement*, *CivicEvidence*,  *ClinVarSubmission*, *CommunityAnnotation*, *InSilicoPredictionScoreStatement*, *InSilicoPredictionScoreStatementEmbedded*, *PopulationAlleleFrequencySource*,  *PopulationAlleleFrequencyStatement*\n"
+                                  "description": "**Type** of entity supported by LDH. The **key** `{entType}` will be one of the currently supported entity types:\n*Gene*, *RegulatoryElement*, *Variant*, *xqtlEvidence*, *AlleleSpecificEvidence*, *RoadmapRegulatoryElementEvidence*, *ENCODERegulatoryElementEvidence*, *RegulatoryElementActivityKnowledge*, *Publication*, *Context*\n"
                                 }
                               }
                             },
@@ -196,7 +196,7 @@
                                       }
                                     }
                                   ],
-                                  "description": "**Type** of entity supported by LDH. The **key** `{entType}` will be one of the currently supported entity types:\n*Variant*, *Gene*,  *AlleleFunctionalImpactStatement*, *AlleleMolecularConsequenceStatement*, *CivicEvidence*,  *ClinVarSubmission*, *CommunityAnnotation*, *InSilicoPredictionScoreStatement*, *InSilicoPredictionScoreStatementEmbedded*, *PopulationAlleleFrequencySource*,  *PopulationAlleleFrequencyStatement*\n"
+                                  "description": "**Type** of entity supported by LDH. The **key** `{entType}` will be one of the currently supported entity types:\n*Gene*, *RegulatoryElement*, *Variant*, *xqtlEvidence*, *AlleleSpecificEvidence*, *RoadmapRegulatoryElementEvidence*, *ENCODERegulatoryElementEvidence*, *RegulatoryElementActivityKnowledge*, *Publication*, *Context*\n"
                                 }
                               }
                             }
@@ -220,12 +220,10 @@
           }
         },
         "summary":     "Entity type",
-        "description": "## Entity Type Metadata\n\n**Examples:** \n* [https://ldh.genome.network/ldh/AlleleFunctionalImpactStatement](https://ldh.genome.network/ldh/AlleleFunctionalImpactStatement)\n* [https://ldh.genome.network/ldh/Variant/](https://ldh.genome.network/ldh/Variant/)\n\n* Get basic information about an LDH **entity type** (`entType`).\n* A given entity type can both **HAVE** linked-data and **ACT AS** linked-data **FOR**. This includes a list of:\n>* What **linked-data** entity types (`ld`) this entity type *can have*.\n>* What entity types this entity type *acts as* **linked-data for** (`ldFor`).",
+        "description": "## Entity Type Metadata\n\nGet basic information about an LDH **entity type** (`entType`).\n* A given entity type can both **HAVE** linked-data and **ACT AS** linked-data **FOR**. This includes a list of:\n>* What **linked-data** entity types (`ld`) this entity type *can have*.\n>* What entity types this entity type *acts as* **linked-data for** (`ldFor`).",
         "operationId": "getEntType",
         "tags":        [
-          "Service",
-          "Typed Lookup",
-          "CFDE-Gene Entities"
+          "Entity"
         ],
         "parameters":  [
           {
@@ -256,7 +254,7 @@
                           "type":  "array",
                           "items": {
                             "type": "object",
-                            "$ref": "#/components/schemas/coreData"
+                            "$ref": "#/components/schemas/data"
                           }
                         }
                       }
@@ -278,7 +276,7 @@
           }
         },
         "summary":     "ID Lookup",
-        "description": "## Non-specific **identity-based** **untyped** lookup\n\n**Examples**:\n* [https://ldh.genome.network/ldh/id/CA015944](https://ldh.genome.network/ldh/id/CA015944)\n* [https://ldh.genome.network/ldh/id/CA015944?detail=high](https://ldh.genome.network/ldh/id/CA015944?detail=high)\n\n* Get an LDH entity via its \"natural\" (domain-relevant & ideally external) identifier/IRI or using the internal LDH identifier/IRI.\n* The identifier can be one of:\n>* `entId` - Identifier of the entity in the external data source. **Example**: ClinGen Allele Registry identifier: *CA015944*\n>* `entIri` - IRI of the entity in the external data source. **Example**: ClinGen Allele Registry IRI: *https://reg.genome.network/allele/CA015944*\n>* `ldhId` - LDH identifier. **Example**: For the variant CA015944 in CAR, the LDH Identifier is: *41889804*\n>* `ldhIri` - LDH IRI. **Example**: For the variant CA015944 in CAR, the LDH IRI is: *https://ldh.genome.network/ldh/Variant/id/41889804*\n",
+        "description": "## Non-specific **identity-based** **untyped** lookup\n\n Get an LDH entity via its \"natural\" (domain-relevant & ideally external) identifier or using the internal LDH identifier.\n* The identifier can be one of:\n>* `entId` - Identifier of the entity in the external data source. **Example**: Gene entId: *COL1A2*\n>* `ldhId` - LDH identifier. **Example**: For the gene COL1A2 , the LDH Identifier is: *1339464779*\n>",
         "parameters":  [
           {
             "$ref": "#/components/parameters/val"
@@ -356,9 +354,10 @@
           }
         },
         "summary":     "Entity Batch Mode",
-        "description": "## Batch **identity-based** **typed** lookup\n\n**Examples:** \n* [https://ldh.genome.network/ldh/AlleleFunctionalImpactStatement/id](https://ldh.genome.network/ldh/AlleleFunctionalImpactStatement/id) \n* [https://ldh.genome.network/ldh/Variant/id](https://ldh.genome.network/ldh/Variant/id)\n* [https://ldh.clinicalgenome.org/ldh/Variant/id?pg=6&pgSize=50&detail=low&fields=entId,entIri](https://ldh.clinicalgenome.org/ldh/Variant/id?pg=6&pgSize=50&detail=low&fields=entId,entIri)\n\nGet the identifiers of **multiple** LDH entries for an entity type in a single (batch) request.\n\n* Batch entity retrieval of a paged list of information about an LDH entity type\n>* Returns 250 items by *default*.\n* The identifiers can be one of:\n>* `entId` - Identifier of the entity in the external data source. **Example**: ClinGen Allele Registry identifier: *CA015944*\n>* `entIri` - IRI of the entity in the external data source. **Example**: ClinGen Allele Registry IRI: *https://reg.genome.network/allele/CA015944*\n>* `ldhId` - LDH identifier. **Example**: For the variant CA015944 in CAR, the LDH Identifier is: *41889804*\n>* `ldhIri` - LDH IRI. **Example**: For the variant CA015944 in CAR, the LDH IRI is: *https://ldh.genome.network/ldh/Variant/id/41889804*\n",
+        "description": "## Batch **entType** retrieval\n\n* Get the records of **multiple** LDH entries for an entity type in a single (batch) request.\n\n* Batch entity retrieval of a paged list of information about an LDH entity type\n>* Page size 250 items by *default*.\n",
         "tags":        [
-          "Typed Lookup - Batch Mode"
+          "Typed Lookup",
+          "Batch Lookup"
         ],
         "parameters":  [
           {
@@ -375,6 +374,9 @@
           },
           {
             "$ref": "#/components/parameters/fields"
+          },
+          {
+            "$ref": "#/components/parameters/ids"
           }
         ],
         "operationId": "getEntTyBatch"
@@ -409,7 +411,7 @@
             "$ref": "#/components/schemas/error-response-400"
           }
         },
-        "description": "## Specific **identity-based** **typed** lookup\n\n**Examples:** \n* [https://ldh.genome.network/ldh/AlleleFunctionalImpactStatement/id/36819409](https://ldh.genome.network/ldh/AlleleFunctionalImpactStatement/id/36819409)\n* [https://ldh.genome.network/ldh/Variant/id/CA023687](https://ldh.genome.network/ldh/Variant/id/CA023687)\n* [https://ldh.genome.network/ldh/AlleleFunctionalImpactStatement/id/36819409?fields=entId,entIri,entContent](https://ldh.genome.network/ldh/AlleleFunctionalImpactStatement/id/36819409?fields=entId,entIri,entContent)\n* [https://ldh.clinicalgenome.org/ldh/Variant/id?detail=high&ids=CA023687,CA015944,CA013436&fields=entId,entIri,ld.ClinVarSubmission](https://ldh.clinicalgenome.org/ldh/Variant/id?detail=high&ids=CA023687,CA015944,CA013436&fields=entId,entIri,ld.ClinVarSubmission)\n\n* Get an LDH entity via its \"natural\" (domain-relevant & ideally external) identifier/IRI or using the internal LDH identifier/IRI.\n* The identifiers can be one of:\n>* `entId` - Identifier of the entity in the external data source. **Example**: ClinGen Allele Registry identifier: *CA015944*\n>* `entIri` - IRI of the entity in the external data source. **Example**: ClinGen Allele Registry IRI: *https://reg.genome.network/allele/CA015944*\n>* `ldhId` - LDH identifier. **Example**: For the variant CA015944 in CAR, the LDH Identifier is: *41889804*\n>* `ldhIri` - LDH IRI. **Example**: For the variant CA015944 in CAR, the LDH IRI is: *https://ldh.genome.network/ldh/Variant/id/41889804*\n",
+        "description": "## Specific **identity-based** **typed** lookup\n\n Get an LDH entity via its \"natural\" (domain-relevant & ideally external) identifier or using the internal LDH identifier.\n* The identifiers can be one of:\n>* `entId` - Identifier of the entity in the external data source. **Example**: Regulatory element identifier: *EH38E0063500*\n>* `ldhId` - LDH identifier. **Example**: For the regulatory element EH38E0063500, the LDH Identifier is: *1469168621*\n",
         "summary":     "Entity By Specific ID",
         "parameters":  [
           {
@@ -423,16 +425,11 @@
           },
           {
             "$ref": "#/components/parameters/fields"
-          },
-          {
-            "$ref": "#/components/parameters/ids"
           }
         ],
         "tags":        [
           "Typed Lookup",
           "Single Document",
-          "CFDE-Gene Entities",
-          "Entity Type",
           "Specific ID"
         ],
         "operationId": "getEntTypeById"
@@ -468,7 +465,7 @@
           }
         },
         "summary":     "Entity \"Linked Data\"",
-        "description": "## Specific **identity-based** **typed** linked-data entity lookup\n\n**Examples:** \n* [https://ldh.genome.network/ldh/Variant/id/CA023687/ld](https://ldh.genome.network/ldh/Variant/id/CA023687/ld)\n* [https://ldh.clinicalgenome.org/ldh/Variant/id/CA015944/ld?fields=ld.ClinVarSubmission&detail=med](https://ldh.clinicalgenome.org/ldh/Variant/id/CA015944/ld?fields=ld.ClinVarSubmission&detail=med)\n\n* Get ***linked-data*** (`ld`) for a specific entity type in LDH.\n* The identifier of the entity can be its \"natural\" (domain-relevant & ideally external) identifier/IRI or the internal LDH identifier/IRI.\n* The response includes a list of what **linked-data** entity types (`ld`) this entity type can have.",
+        "description": "## Specific **identity-based** **typed** linked-data entity lookup\n\n Get ***linked-data*** (`ld`) for a specific entity type in LDH.\n* The identifier of the entity can be its \"natural\" (domain-relevant & ideally external) identifier or the internal LDH identifier.\n* The response includes a list of what **linked-data** entity types (`ld`) this entity type can have.",
         "operationId": "getLdObjForEntTypeBySpecificId",
         "parameters":  [
           {
@@ -488,7 +485,6 @@
           "Typed Lookup",
           "Single Document",
           "Linked Data",
-          "Entity Type",
           "Specific ID"
         ]
       }
@@ -522,7 +518,7 @@
             "$ref": "#/components/schemas/error-response-400"
           }
         },
-        "summary":     "Entity \"Linked Data - For\"",
+        "summary":     "Entity \"Linked Data - For \"",
         "tags":        [
           "Typed Lookup",
           "Single Document",
@@ -544,7 +540,7 @@
             "$ref": "#/components/parameters/fields"
           }
         ],
-        "description": "## Specific **identity-based** **typed** linked-data-for entity lookup\n\n**Examples:** \n* [https://ldh.genome.network/ldh/AlleleFunctionalImpactStatement/id/36819409/ldFor?detail=med](https://ldh.genome.network/ldh/AlleleFunctionalImpactStatement/id/36819409/ldFor?detail=med) \n* [https://ldh.genome.network/ldh/Variant/id/CA023687/ldFor](https://ldh.genome.network/ldh/Variant/id/CA023687/ldFor)\n* [https://ldh.clinicalgenome.org/ldh/Variant/id/CA015944/ldFor?fields=Gene&detail=med](https://ldh.clinicalgenome.org/ldh/Variant/id/CA015944/ldFor?fields=Gene&detail=med)\n\n* Get ***linked-data for*** (`ldFor`) for a specific entity type in LDH.\n* The identifier of the entity can be its \"natural\" (domain-relevant & ideally external) identifier/IRI or the internal LDH identifier/IRI.\n* The response includes a list of what entity types this entity type acts as **linked-data for** (`ldFor`)."
+        "description": "## Specific **identity-based** **typed** linked-data-for entity lookup\n\n Get ***linked-data for*** (`ldFor`, *i.e. the documents this entity is linked data for*) for a specific entity type in LDH.\n* The identifier of the entity can be its \"natural\" (domain-relevant & ideally external) identifier or the internal LDH identifier.\n* The response includes the entity types this entity type acts as **linked-data for** (`ldFor`).\n* Depending on the `detail` specified in the query, the response may include: \n>* a list of all entities this entity acts as **linked-data for** \n>* **OR** a count of the `ldFor` docs associated with this entity"
       }
     },
     "/{entType}/id/{val}/types":       {
@@ -583,14 +579,13 @@
             "$ref": "#/components/schemas/error-response-400"
           }
         },
-        "description": "## Types of Linked-Data for an LDH Entity\n\n**Examples:** \n* [https://ldh.genome.network/ldh/AlleleFunctionalImpactStatement/id/36819409/types](https://ldh.genome.network/ldh/AlleleFunctionalImpactStatement/id/36819409/types)\n* [https://ldh.genome.network/ldh/Variant/id/CA023687/types](https://ldh.genome.network/ldh/Variant/id/CA023687/types)\n* [https://ldh.clinicalgenome.org/ldh/Variant/id/CA015944/types?fields=ld.ClinVarSubmission&detail=med](https://ldh.clinicalgenome.org/ldh/Variant/id/CA015944/types?fields=ld.ClinVarSubmission&detail=med)\n\n* Get the Types of Linked-Data for an LDH Subject Entity. \n* The identifier of the entity can be its \"natural\" (domain-relevant & ideally external) identifier/IRI or the internal LDH identifier/IRI.\n* The response does not include any information about the entity itself, but just includes the types of linked-data it has.\n* By default the more natural/ontologically-relevant entType values are returned. \n* Includes list of **entity types** i.e. ***linked-data*** and ***linked-data for*** entity types for a specific entity type in LDH:\n>* What linked-data entity types (`ld`) this entity type can have.\n>* What entity types (`ldFor`) this entity type acts as linked-data for.",
-        "summary":     "Entity linked types - all",
+        "description": "## Types of Linked-Data for an LDH Entity\n\n Get the Types of Linked-Data for an LDH Subject Entity. \n* The identifier of the entity can be its \"natural\" (domain-relevant & ideally external) identifier or the internal LDH identifier.\n* The response does not include any information about the entity itself, but just includes the types of linked-data it has.\n* By default the more natural/ontologically-relevant entType values are returned. \n* Includes list of **entity types** i.e. ***linked-data*** and ***linked-data for*** entity types for a specific entity type in LDH:\n>* What linked-data entity types (`ld`) this entity type can have.\n>* What entity types (`ldFor`) this entity type acts as linked-data for.",
+        "summary":     "Entity \"Linked Data - all types\" ",
         "operationId": "getEntTypesForEntity",
         "tags":        [
           "Typed Lookup",
           "Single Document",
           "Linked Data",
-          "Entity Type",
           "Specific ID"
         ],
         "parameters":  [
@@ -652,13 +647,12 @@
           }
         ],
         "summary":     "Entity linked types - \"ld\" only",
-        "description": "## Specific **identity-based** **typed** linked-data lookup - `ld` only\n\n**Examples:** \n* [https://ldh.genome.network/ldh/Variant/id/CA023687/types/ld](https://ldh.genome.network/ldh/Variant/id/CA023687/types/ld)\n* [https://ldh.clinicalgenome.org/ldh/Variant/id/CA015944/types/ld?fields=ClinVarSubmission&detail=high](https://ldh.clinicalgenome.org/ldh/Variant/id/CA015944/types/ld?fields=ClinVarSubmission&detail=high)\n\n* Get the ***linked data*** (`ld`) for a specific entity type in LDH.\n* The identifier of the entity can be its \"natural\" (domain-relevant & ideally external) identifier/IRI or the internal LDH identifier/IRI.\n* By default the more natural/ontologically-relevant entType values are returned. \n* The response does not include any information about the entity itself, but just includes a list of what **linked-data** entity types (`ld`) this entity type can have.",
+        "description": "## Specific **identity-based** **typed** linked-data lookup - `ld` only\n\nGet the ***linked data*** (`ld`) for a specific entity type in LDH.\n* The identifier of the entity can be its \"natural\" (domain-relevant & ideally external) identifier or the internal LDH identifier.\n* By default the more natural/ontologically-relevant entType values are returned. \n* The response does not include any information about the entity itself, but just includes a list of what **linked-data** entity types (`ld`) this entity type can have.",
         "operationId": "getLdObjWithEntTypesForEntity",
         "tags":        [
           "Typed Lookup",
           "Single Document",
           "Linked Data",
-          "Entity Type",
           "Specific ID"
         ]
       }
@@ -692,13 +686,13 @@
           }
         },
         "summary":     "Entity linked types - \"ldFor\" only",
-        "description": "## Specific **identity-based** **typed** linked-data-for lookup - `ldFor` only\n\n**Examples:** \n* [https://ldh.genome.network/ldh/AlleleFunctionalImpactStatement/id/36819409/types/ldFor?detail=med](https://ldh.genome.network/ldh/AlleleFunctionalImpactStatement/id/36819409/types/ldFor?detail=med)\n* [https://ldh.genome.network/ldh/Variant/id/CA023687/types/ldFor](https://ldh.genome.network/ldh/Variant/id/CA023687/types/ldFor)\n* [https://ldh.clinicalgenome.org/ldh/Variant/id/CA015944/types/ldFor?fields=Gene&detail=high](https://ldh.clinicalgenome.org/ldh/Variant/id/CA015944/types/ldFor?fields=Gene&detail=high)\n\n* Get the ***linked-data for*** (`ldFor`) for a specific entity type in LDH.\n* The identifier of the entity can be its \"natural\" (domain-relevant & ideally external) identifier/IRI or the internal LDH identifier/IRI.\n* By default the more natural/ontologically-relevant entType values are returned. \n* The response does not include any information about the entity itself, but just includes a list of what entity types this entity type acts as **linked-data for** (`ldFor`).",
+        "description": "## Specific **identity-based** **typed** linked-data-for lookup - `ldFor` only\n\nGet the ***linked-data for*** (`ldFor`) for a specific entity type in LDH.\n* The identifier of the entity can be its \"natural\" (domain-relevant & ideally external) identifier or the internal LDH identifier.\n* By default the more natural/ontologically-relevant entType values are returned. \n* The response does not include any information about the entity itself, but just includes a list of what entity types this entity type acts as **linked-data for** (`ldFor`).",
         "operationId": "getLdForObjWithEntTypesForEntity",
         "tags":        [
           "Typed Lookup",
           "Single Document",
           "Linked Data",
-          "Entity Type"
+          "Specific ID"
         ],
         "parameters":  [
           {
@@ -740,7 +734,7 @@
         "schema": {
           "type":        "string",
         },
-        "description": "Comma separated list of ***identifiers***. This query param allows batch search of a list of identifiers.\n**Example:** *CA023687,CA015944,CA013436*"
+        "description": "Comma separated list of ***identifiers***. This query param allows batch search of a list of identifiers.\n**Example:** *CA14403822,CA13697882,CA12505803*"
       },
       "types":  {
         "name":        "types",
@@ -760,7 +754,7 @@
             "Publication"
           ]
         },
-        "description": "Comma separated list of ***entity types*** \n* Allows filtering the response to show certain entity types only\n\n**Example:** ClinVarSubmission,CommunityAnnotation",
+        "description": "Comma separated list of ***entity types*** \n* Allows filtering the response to show certain entity types only\n\n**Example:** xqtlEvidence,Publication",
       },
       "fields": {
         "name":        "fields",
@@ -768,7 +762,7 @@
         "schema": {
           "type":        "string",
         },
-        "description": "Comma separated list of ***fields*** to retrieve. \n\n**Example:** *entId,ldhId,entContent.source,entContent.tags*"
+        "description": "Comma separated list of ***fields*** to retrieve. \n\n**Example:** *entId,ldhId,entContent.source*"
       },
       "pg":     {
         "in":          "query",
@@ -793,13 +787,13 @@
           "type":        "string"
         },
         "required":    true,
-        "description": "***val*** can be any identifier or IRI that is accepted in LDH. This includes:\n* internal LDH `ldhId` or `ldhIri`\n* `entId` or `entIri` of an external data source such as ClinVar ID or gnomAD ID or links/IRIs to the resources in the external data source.\n\n**Examples:** *CA015944*; *1-41249464-G-T*; *TP53*; *https://reg.genome.network/allele/CA015944*; *41889804*; *https://ldh.genome.network/ldh/Variant/id/41889804*; "
+        "description": "***val*** can be any identifier or IRI that is accepted in LDH. This includes:\n* internal LDH `ldhId`\n* `entId` of an external data source such as ClinVar ID or gnomAD ID or links/IRIs to the resources in the external data source.\n\n**Examples:** *CA12505803*; *COL1A2*; *41889804*;  "
       },
       "entType":   {
         "in":          "path",
         "required":    true,
         "name":        "entType",
-        "description": "A valid ***entity type*** in LDH.\n**Example:** *Variant*",
+        "description": "A valid ***entity type*** in LDH.\n**Example:** *RegulatoryElement*",
         "schema": {
           "type":        "string",
           "enum": [
@@ -900,32 +894,38 @@
             "type":       "object",
             "properties": {
               "ld":    {
-                "type":        "object",
-                "description": "* A list of what **linked-data** entity types (`ld`) this entity type can have",
-                "properties":  {
-                  "{entType}": {
-                    "type":        "integer",
-                    "description": "**Type** of entity supported by LDH. The **key** `{entType}` will be one of the currently supported entity types:\n*Variant*, *Gene*,  *AlleleFunctionalImpactStatement*, *AlleleMolecularConsequenceStatement*, *CivicEvidence*,   *ClinVarSubmission*, *CommunityAnnotation*, *InSilicoPredictionScoreStatement*, *InSilicoPredictionScoreStatementEmbedded*, *PopulationAlleleFrequencySource*,   *PopulationAlleleFrequencyStatement*\n"
-                  }
-                }
+                "$ref": "#/components/schemas/entityOnlyLowOrNoLdDetail"
               },
               "ldFor": {
-                "type":        "object",
-                "description": "* A list of what entity types this entity type acts as **linked-data for** (`ldFor`).",
-                "properties":  {
-                  "{entType}": {
-                    "type":        "integer",
-                    "description": "**Type** of entity supported by LDH. The **key** `{entType}` will be one of the currently supported entity types:\n*Variant*, *Gene*,  *AlleleFunctionalImpactStatement*, *AlleleMolecularConsequenceStatement*, *CivicEvidence*,   *ClinVarSubmission*, *CommunityAnnotation*, *InSilicoPredictionScoreStatement*, *InSilicoPredictionScoreStatementEmbedded*, *PopulationAlleleFrequencySource*,   *PopulationAlleleFrequencyStatement*\n"
-                  }
-                }
+                "$ref": "#/components/schemas/entityOnlyLowOrNoLdDetail"
               }
             }
           }
         ]
       },
+      "modifierNoLdDetail":        {
+        "allOf":       [
+          {
+            "$ref": "#/components/schemas/coreData"
+          },
+          {
+            "type":       "object",
+            "properties": {
+              "ld":    {
+                "$ref": "#/components/schemas/entityOnlyLowOrNoLdDetail"
+              },
+              "ldFor": {
+                "$ref": "#/components/schemas/entityOnlyLowOrNoLdDetail"
+              }
+            }
+          }
+        ],
+        "description": "***noLd*** level of *detail* - i.e do not show any detailed level of **linked data**.\n\n* The ***entity*** includes all details i.e. all the core fields including identifiers, IRIs, revision ID, *entAliases*, *entContent* and provenance information.\n*  The `ld` and `ldFor` show only the integer **counts** for 1+ such linked entity.",
+        "title":       "| LDH Modifier - noLd detail"
+      },
       "metadata":                  {
         "type":        "object",
-        "title":       "| LDH Common - Metadata",
+        "title":       "| LDH Common - Response Metadata",
         "description": "***metadata*** **model** - Fields typically found in the `metadata` section of the API response.",
         "properties":  {
           "rendered": {
@@ -935,7 +935,8 @@
               "by":   {
                 "type":        "string",
                 "description": "The **service** which rendered this API response",
-                "format":      "uri"
+                "format":      "uri",
+                "example": "https://genboree.org/cfde-gene-dev/srvc"
               },
               "when": {
                 "type":        "string",
@@ -952,23 +953,22 @@
       },
       "status":                    {
         "type":        "object",
-        "title":       "| LDH Common - Status",
+        "title":       "| LDH Common - Response Status",
         "description": "***status*** **model** - Fields typically found in the `status` section of the API response.",
         "properties":  {
           "code": {
             "type":        "integer",
             "description": "API Response Status Code",
-            "example":     404
+            "example":     200
           },
           "name": {
             "type":        "string",
             "description": "Descriptive name of the API response ",
-            "example":     "Not Found"
+            "example":     "OK"
           },
           "msg":  {
             "type":        "string",
             "description": "Optional message returned by the API response",
-            "example":     "Bad Entity - No 'Variant' entity found with identifier 'CA02334687'"
           }
         },
         "required":    [
@@ -1003,10 +1003,27 @@
                 "$ref": "#/components/schemas/entAliases"
               },
               "entContent":    {
-                "description": "* **Entity Content** - captures ***excerpts*** (i.e. select data) from the external data source (i.e. the source from which data was obtained). \n* The value of `entContent` is described in the *| LDH Common - EntContent* model in the *LDH Entities* section of the documentation.\n* Each `entType` has its own `entContent` model.\n* Currently supported entity types:\n*Variant*, *Gene*,  *AlleleFunctionalImpactStatement*, *AlleleMolecularConsequenceStatement*, *CivicEvidence*,   *ClinVarSubmission*, *CommunityAnnotation*, *InSilicoPredictionScoreStatement*, *InSilicoPredictionScoreStatementEmbedded*, *PopulationAlleleFrequencySource*,   *PopulationAlleleFrequencyStatement*\n",
-                "type":        "object"
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/Context-EntContent"
+                  },{
+                    "$ref": "#/components/schemas/Publication-EntContent"
+                  },{
+                    "$ref": "#/components/schemas/RegulatoryElementActivityKnowledge-EntContent"
+                  },{
+                    "$ref": "#/components/schemas/ENCODERegulatoryElementEvidence-EntContent"
+                  },{
+                    "$ref": "#/components/schemas/RoadmapRegulatoryElementEvidence-EntContent"
+                  },{
+                    "$ref": "#/components/schemas/AlleleSpecificEvidence-EntContent"
+                  },{
+                    "$ref": "#/components/schemas/xqtlEvidence-EntContent"
+                  }
+                ],
+                "description": "* **Entity Content** - captures ***excerpts*** (i.e. select data) from the external data source (i.e. the source from which data was obtained). \n* Each `entType` has its own `entContent` model and some `entTypes` lack this field.\n* Currently supported entity types:\n*Gene*, *RegulatoryElement*, *Variant*, *xqtlEvidence*, *AlleleSpecificEvidence*, *RoadmapRegulatoryElementEvidence*, *ENCODERegulatoryElementEvidence*, *RegulatoryElementActivityKnowledge*, *Publication*, *Context*\n",
               }
-            }
+            },
+            "required": ["modifier", "modified"]
           }
         ]
       },
@@ -1114,26 +1131,6 @@
           }
         ]
       },
-      "modifierNoLdDetail":        {
-        "allOf":       [
-          {
-            "$ref": "#/components/schemas/coreData"
-          },
-          {
-            "type":       "object",
-            "properties": {
-              "ld":    {
-                "$ref": "#/components/schemas/entityOnlyLowOrNoLdDetail"
-              },
-              "ldFor": {
-                "$ref": "#/components/schemas/entityOnlyLowOrNoLdDetail"
-              }
-            }
-          }
-        ],
-        "description": "***noLd*** level of *detail* - i.e do not show any detailed level of **linked data**.\n\n* The ***entity*** includes all details i.e. all the core fields including identifiers, IRIs, revision ID, *entAliases*, *entContent* and provenance information.\n*  The `ld` and `ldFor` show only the integer **counts** for 1+ such linked entity.",
-        "title":       "| LDH Modifier - noLd detail"
-      },
       "idLevel":                   {
         "type":        "object",
         "title":       "| LDH Common - Identifier Level",
@@ -1142,7 +1139,7 @@
           "entId":   {
             "type":        "string",
             "description": "**Identifier** of the entity in the external data source.",
-            "example":     "CA015944"
+            "example":     "CA12505803"
           },
           "entIri":  {
             "type":        "string",
@@ -1188,7 +1185,7 @@
           "rev"
         ]
       },
-      "data":                      {
+      "data": {
         "title":       "| LDH Common - Data",
         "oneOf":       [
           {
@@ -1204,7 +1201,7 @@
             "$ref": "#/components/schemas/modifierLowDetail"
           }
         ],
-        "description": "***data*** **model** - Fields found in the `data` section of the API response.\n\n* Contains both **entity** level data as well as the **linked data** for 1+ linked entities"
+        "description": "***data*** **model** - Fields describing an **entity**, found in the `data` section of the API response.\n\n* Contains both **entity** level data as well as the **linked data** for 1+ linked entities"
       },
       "entityData":                {
         "title":       "| LDH Common - Entity Level Data",
@@ -1228,7 +1225,7 @@
         "properties":  {
           "{entType}": {
             "type":        "integer",
-            "description": "**Type** of entity supported by LDH. The **key** `{entType}` will be one of the currently supported entity types:\n*Variant*, *Gene*,  *AlleleFunctionalImpactStatement*, *AlleleMolecularConsequenceStatement*, *CivicEvidence*,   *ClinVarSubmission*, *CommunityAnnotation*, *InSilicoPredictionScoreStatement*, *InSilicoPredictionScoreStatementEmbedded*, *PopulationAlleleFrequencySource*,   *PopulationAlleleFrequencyStatement*\n"
+            "description": "**Type** of entity supported by LDH. The **key** `{entType}` will be one of the currently supported entity types:\n*Gene*, *RegulatoryElement*, *Variant*, *xqtlEvidence*, *AlleleSpecificEvidence*, *RoadmapRegulatoryElementEvidence*, *ENCODERegulatoryElementEvidence*, *RegulatoryElementActivityKnowledge*, *Publication*, *Context*\n"
           }
         }
       },
@@ -1239,7 +1236,7 @@
         "properties":  {
           "{entType}": {
             "type":        "array",
-            "description": "**Type** of entity supported by LDH. The **key** `{entType}` will be one of the currently supported entity types:\n*Variant*, *Gene*,  *AlleleFunctionalImpactStatement*, *AlleleMolecularConsequenceStatement*, *CivicEvidence*,   *ClinVarSubmission*, *CommunityAnnotation*, *InSilicoPredictionScoreStatement*, *InSilicoPredictionScoreStatementEmbedded*, *PopulationAlleleFrequencySource*,   *PopulationAlleleFrequencyStatement*\n",
+            "description": "**Type** of entity supported by LDH. The **key** `{entType}` will be one of the currently supported entity types:\n*Gene*, *RegulatoryElement*, *Variant*, *xqtlEvidence*, *AlleleSpecificEvidence*, *RoadmapRegulatoryElementEvidence*, *ENCODERegulatoryElementEvidence*, *RegulatoryElementActivityKnowledge*, *Publication*, *Context*\n",
             "items":       {
               "$ref": "#/components/schemas/idLevel"
             }
@@ -1253,50 +1250,22 @@
         "properties":  {
           "{entType}": {
             "type":        "array",
-            "description": "**Type** of entity supported by LDH. The **key** `{entType}` will be one of the currently supported entity types:\n*Variant*, *Gene*,  *AlleleFunctionalImpactStatement*, *AlleleMolecularConsequenceStatement*, *CivicEvidence*,   *ClinVarSubmission*, *CommunityAnnotation*, *InSilicoPredictionScoreStatement*, *InSilicoPredictionScoreStatementEmbedded*, *PopulationAlleleFrequencySource*,   *PopulationAlleleFrequencyStatement*\n",
+            "description": "**Type** of entity supported by LDH. The **key** `{entType}` will be one of the currently supported entity types:\n*Gene*, *RegulatoryElement*, *Variant*, *xqtlEvidence*, *AlleleSpecificEvidence*, *RoadmapRegulatoryElementEvidence*, *ENCODERegulatoryElementEvidence*, *RegulatoryElementActivityKnowledge*, *Publication*, *Context*\n",
             "items":       {
               "$ref": "#/components/schemas/coreData"
             }
           }
         }
       },
-      "Common-EntContent-enriched" : {
-        "properties": {
-          "enriched": { "type": "boolean" }
-        },
-      },
-      "Common-EntContent-alleleSpecificity": {
-        "properties": {
-          "refAlleleQuant": { "type":  "number" },
-          "altAlleleQuant": { "type":  "number" },
-          "sig": { "type":  "number" }
-        },
-      },
-      "Common-EntContent-qtlEffect": {
-        "properties": {
-          "GeneEntId": { "type": "string" },
-          "nes": { "type": "number" },
-          "sig": { "type": "number" }
-        },
-      },
-      "Common-EntContent-evidenceId": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "sourceName": { "type": "string" },
-            "evidenceName": { "type": "string" }
-          },
-        }
-
-      },
       "Context-EntContent" : {
+        "title": "EntContent for Context",
         "properties": {
           "preferredName": { "type": "string" },
         },
         "additionalProperties": false
       },
       "Publication-EntContent" : {
+        "title": "EntContent for Publication",
         "properties": {
           "title": { "type": "string" },
           "doi":   { "type": "string" },
@@ -1306,8 +1275,8 @@
         "required": ["title", "doi", "date"],
         "additionalProperties": false
       },
-
       "RegulatoryElementActivityKnowledge-EntContent" : {
+        "title": "EntContent for RegulatoryElementActivityKnowledge",
         "properties": {
           "EvidenceNames": { "$ref": "#/components/schemas/Common-EntContent-evidenceId" },
           "RegulatoryElement": {
@@ -1315,7 +1284,6 @@
               "type": {"type": "string"},
               "state": {"type": "string"}
             },
-            additionalProperties: false
           },
           "sourceDescription": { "type": "string" }
         },
@@ -1323,6 +1291,7 @@
         "additionalProperties": false
       },
       "ENCODERegulatoryElementEvidence-EntContent": {
+        "title": "EntContent for ENCODERegulatoryElementEvidence",
         "properties": {
           "EvidenceNames": { "$ref": "#/components/schemas/Common-EntContent-evidenceId" },
           "RegulatoryElement": {
@@ -1349,6 +1318,7 @@
         "additionalProperties": false
       },
       "RoadmapRegulatoryElementEvidence-EntContent": {
+        "title": "EntContent for RoadmapRegulatoryElementEvidence",
         "properties": {
           "EvidenceNames": { "$ref": "#/components/schemas/Common-EntContent-evidenceId" },
           "RoadmapRegulatoryElement": {
@@ -1377,6 +1347,7 @@
         "additionalProperties": false
       },
       "AlleleSpecificEvidence-EntContent":    {
+        "title": "EntContent for AlleleSpecificEvidence",
         "required": ["EvidenceNames", "score", "AlleleSpecificity"],
         "properties": {
           "EvidenceNames": { "$ref": "#/components/schemas/Common-EntContent-evidenceId"},
@@ -1412,6 +1383,7 @@
         "additionalProperties": false
       },
       "xqtlEvidence-EntContent": {
+        "title": "EntContent for xqtlEvidence",
         "required": ["EvidenceNames", "score", "GTExIri"],
         "properties": {
           "EvidenceNames": { "$ref": "#/components/schemas/Common-EntContent-evidenceId" },
@@ -1422,48 +1394,74 @@
           "sourceDescription": { "type": "string" }
         },
         "additionalProperties": false
-      }
+      },
+      "Common-EntContent-enriched" : {
+        "title": "enriched",
+        "properties": {
+          "enriched": { "type": "boolean" }
+        },
+      },
+      "Common-EntContent-alleleSpecificity": {
+        "title": "alleleSpecificity",
+        "properties": {
+          "refAlleleQuant": { "type":  "number" },
+          "altAlleleQuant": { "type":  "number" },
+          "sig": { "type":  "number" }
+        },
+      },
+      "Common-EntContent-qtlEffect": {
+        "title": "qtlEffect",
+        "properties": {
+          "GeneEntId": { "type": "string" },
+          "nes": { "type": "number" },
+          "sig": { "type": "number" }
+        },
+      },
+      "Common-EntContent-evidenceId": {
+        "title": "evidenceId",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "sourceName": { "type": "string" },
+            "evidenceName": { "type": "string" }
+          },
+        }
+      },
     },
   },
   "tags":       [
-    {
-      "name":        "Linked Data",
-      "description": "Response includes the special \"Linked Data\" objects such as \"ld\" and \"ldFor\""
-    },
-    {
-      "name":        "CFDE-Gene Entities",
-      "description": "List of all entities available in LDH"
-    },
     {
       "name":        "Service",
       "description": "Service Metadata which contains a list of all entity types and number of documents in each entity type collection"
     },
     {
-      "name":        "Untyped Lookup",
-      "description": "Untyped lookup service"
+      "name":        "Entity",
+      "description": "Entity specific info, including entity and linked data document counts for the entity collection"
     },
     {
-      "name":        "Single Document",
-      "description": "Response has a single document"
+      "name":        "Untyped Lookup",
+      "description": "Untyped entity lookup using id val"
     },
     {
       "name":        "Typed Lookup",
       "description": "Lookup based on entity types"
     },
     {
+      "name":        "Linked Data",
+      "description": "Response returns the requested \"Linked Data\" for the provided entity id val"
+    },
+    {
+      "name":        "Single Document",
+      "description": "Response has a single document"
+    },
+    {
       "name":        "Batch Lookup",
-      "description": "Batch lookup of entities in LDH, which provides a paged response"
+      "description": "Batch lookup of entities. Response includes a paged list of items from the searched entity type. Default page size: 250"
     },
     {
-      "name":        "Entity Type",
-      "description": "Entity Type modeled and stored in LDH"
-    },
-    {
-      "name": "Specific ID"
-    },
-    {
-      "name":        "Typed Lookup - Batch Mode",
-      "description": "Response includes a list of items from the searched entity type. Default: 250"
+      "name": "Specific ID",
+      "description": "Lookup by identifier"
     }
   ]
 }
