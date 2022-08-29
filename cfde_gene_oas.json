@@ -3,7 +3,7 @@
   "info":       {
     "version":     "1.0",
     "title":       "Common Fund Data Ecosystem Gene Regulation Linked Data Hub",
-    "description": "[**OpenAPI Specification (OAS)**](https://github.com/OAI/OpenAPI-Specification) for the ***CFDE Gene Regulation Linked Data Hub REST API Design***.\n\n* Contains generic information about the **CFDE Gene Regulation Linked Data Hub** API.\n* Provides information about payload, response codes, modifiers, core fields in the response, etc\n* Responses will be structured JSON-LD, with natural hierarchical organization.\n\n**NOTE**: Response description of several endpoints in this documentation refer to a dynamic property name `entType`. It is one of the currently supported entity types in LDH. \nEntity content will vary depending on the `entType` path parameter used in the lookup. Detailed descriptions of the different entities supported by CFDE Gene LDH and the schemas for their `entContent` is available in the ***Entities*** tab of this documentation.\n\n## Disclaimer\n\n* **BETA RELEASE.** \n\t* This version of the CFDE Gene LDH service and content is BETA. Additional features are under development. \n\t* Content and representations are subject to change.\n\t* Service and content addresses are subject to change.\n\t* Service and content IRIs are not permalinks and are subject to change.\n\t\n* The OAS3 Spec is intended mainly for documentation and description of the API, interoperability development, general assessment, and illustration.  ",
+    "description": "[**OpenAPI Specification (OAS)**](https://github.com/OAI/OpenAPI-Specification) for the ***CFDE Gene Regulation Linked Data Hub REST API Design***.\n\n* Contains generic information about the **CFDE Gene Regulation Linked Data Hub** API.\n* Provides information about payload, response codes, modifiers, core fields in the response, etc\n* Responses will be structured JSON-LD, with natural hierarchical organization.\n\n**NOTE**: Response description of several endpoints in this documentation refer to a dynamic property name `entType`. It is one of the currently supported entity types in LDH. \nEntity content will vary depending on the `entType` path parameter used in the lookup. Descriptions of the different entities supported by CFDE Gene LDH and the schemas for their `entContent` is available in the ***Components*** tab of this documentation.\n\n## Disclaimer\n\n* **BETA RELEASE.** \n\t* This version of the CFDE Gene LDH service and content is BETA. Additional features are under development. \n\t* Content and representations are subject to change.\n\t* Service and content addresses are subject to change.\n\t* Service and content IRIs are not permalinks and are subject to change.\n\t\n* The OAS3 Spec is intended mainly for documentation and description of the API, interoperability development, general assessment, and illustration.  ",
     "contact":     {
       "name":  "CFDE Informatics Team at Baylor College of Medicine",
       "url":   "https://genboree.org/cfde-gene-dev/",
@@ -217,7 +217,7 @@
           },
           "400": {
             "$ref": "#/components/schemas/error-response-400"
-          }
+          },
         },
         "summary":     "Entity type",
         "description": "## Entity Type Metadata\n\nGet basic information about an LDH **entity type** (`entType`).\n* A given entity type can both **HAVE** linked-data and **ACT AS** linked-data **FOR**. This includes a list of:\n>* What **linked-data** entity types (`ld`) this entity type *can have*.\n>* What entity types this entity type *acts as* **linked-data for** (`ldFor`).",
@@ -273,6 +273,9 @@
           },
           "400": {
             "$ref": "#/components/schemas/error-response-400"
+          },
+          "404": {
+             "$ref": "#/components/schemas/error-response-404"
           }
         },
         "summary":     "ID Lookup",
@@ -329,28 +332,10 @@
             },
           },
           "400": {
-            "description": "Response contains a description of the error that occurred.",
-            "content":     {
-              "application/json": {
-                "schema": {
-                  "type":       "object",
-                  "properties": {
-                    "errCat":  {
-                      "type": "string"
-                    },
-                    "errCode": {
-                      "type": "integer"
-                    },
-                    "errMsg":  {
-                      "type": "string"
-                    },
-                    "errName": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            },
+            "$ref": "#/components/schemas/error-response-400"
+          },
+          "404": {
+             "$ref": "#/components/schemas/error-response-404"
           }
         },
         "summary":     "Entity Batch Mode",
@@ -409,6 +394,9 @@
           },
           "400": {
             "$ref": "#/components/schemas/error-response-400"
+          },
+          "404": {
+             "$ref": "#/components/schemas/error-response-404"
           }
         },
         "description": "## Specific **identity-based** **typed** lookup\n\n Get an LDH entity via its \"natural\" (domain-relevant & ideally external) identifier or using the internal LDH identifier.\n* The identifiers can be one of:\n>* `entId` - Identifier of the entity in the external data source. **Example**: Regulatory element identifier: *EH38E0063500*\n>* `ldhId` - LDH identifier. **Example**: For the regulatory element EH38E0063500, the LDH Identifier is: *1469168621*\n",
@@ -446,7 +434,7 @@
                   "type":       "object",
                   "properties": {
                     "data":     {
-                      "$ref": "#/components/schemas/entityData"
+                      "$ref": "#/components/schemas/linkedEntityData"
                     },
                     "metadata": {
                       "$ref": "#/components/schemas/metadata"
@@ -462,6 +450,9 @@
           },
           "400": {
             "$ref": "#/components/schemas/error-response-400"
+          },
+          "404": {
+             "$ref": "#/components/schemas/error-response-404"
           }
         },
         "summary":     "Entity \"Linked Data\"",
@@ -500,7 +491,7 @@
                   "type":       "object",
                   "properties": {
                     "data":     {
-                      "$ref": "#/components/schemas/entityData"
+                      "$ref": "#/components/schemas/linkedEntityData"
                     },
                     "metadata": {
                       "$ref": "#/components/schemas/metadata"
@@ -516,6 +507,9 @@
           },
           "400": {
             "$ref": "#/components/schemas/error-response-400"
+          },
+          "404": {
+             "$ref": "#/components/schemas/error-response-404"
           }
         },
         "summary":     "Entity \"Linked Data - For \"",
@@ -557,10 +551,10 @@
                       "type":       "object",
                       "properties": {
                         "ld":    {
-                          "$ref": "#/components/schemas/entityData"
+                          "$ref": "#/components/schemas/linkedEntityData"
                         },
                         "ldFor": {
-                          "$ref": "#/components/schemas/entityData"
+                          "$ref": "#/components/schemas/linkedEntityData"
                         }
                       }
                     },
@@ -577,6 +571,9 @@
           },
           "400": {
             "$ref": "#/components/schemas/error-response-400"
+          },
+          "404": {
+             "$ref": "#/components/schemas/error-response-404"
           }
         },
         "description": "## Types of Linked-Data for an LDH Entity\n\n Get the Types of Linked-Data for an LDH Subject Entity. \n* The identifier of the entity can be its \"natural\" (domain-relevant & ideally external) identifier or the internal LDH identifier.\n* The response does not include any information about the entity itself, but just includes the types of linked-data it has.\n* By default the more natural/ontologically-relevant entType values are returned. \n* Includes list of **entity types** i.e. ***linked-data*** and ***linked-data for*** entity types for a specific entity type in LDH:\n>* What linked-data entity types (`ld`) this entity type can have.\n>* What entity types (`ldFor`) this entity type acts as linked-data for.",
@@ -615,7 +612,7 @@
                   "type":       "object",
                   "properties": {
                     "data":     {
-                      "$ref": "#/components/schemas/entityData"
+                      "$ref": "#/components/schemas/linkedEntityData"
                     },
                     "metadata": {
                       "$ref": "#/components/schemas/metadata"
@@ -630,6 +627,9 @@
           },
           "400": {
             "$ref": "#/components/schemas/error-response-400"
+          },
+          "404": {
+             "$ref": "#/components/schemas/error-response-404"
           }
         },
         "parameters":  [
@@ -668,7 +668,7 @@
                   "type":       "object",
                   "properties": {
                     "data":     {
-                      "$ref": "#/components/schemas/entityData"
+                      "$ref": "#/components/schemas/linkedEntityData"
                     },
                     "metadata": {
                       "$ref": "#/components/schemas/metadata"
@@ -683,6 +683,9 @@
           },
           "400": {
             "$ref": "#/components/schemas/error-response-400"
+          },
+          "404": {
+             "$ref": "#/components/schemas/error-response-404"
           }
         },
         "summary":     "Entity linked types - \"ldFor\" only",
@@ -842,90 +845,27 @@
           }
         }
       },
-      "modifierHighDetail":        {
-        "allOf":       [
+      "data": {
+        "title":       "Entity Response Data",
+        "oneOf":       [
           {
-            "$ref": "#/components/schemas/coreData"
+            "$ref": "#/components/schemas/modifierHighDetail"
           },
           {
-            "type":        "object",
-            "description": "* A list of what **linked-data** entity types (`ld`) this entity type can have\n* A list of what entity types this entity type acts as **linked-data for** (`ldFor`).",
-            "properties":  {
-              "ld":    {
-                "$ref": "#/components/schemas/entityOnlyHighDetail"
-              },
-              "ldFor": {
-                "$ref": "#/components/schemas/entityOnlyHighDetail"
-              }
-            }
+            "$ref": "#/components/schemas/modifierMedDetail"
+          },
+          {
+            "$ref": "#/components/schemas/modifierNoLdDetail"
+          },
+          {
+            "$ref": "#/components/schemas/modifierLowDetail"
           }
         ],
-        "description": "***high*** level of *detail*\n\n* The ***entity*** includes all details i.e. all the core fields including identifiers, IRIs, revision ID, *entAliases*, *entContent* and provenance information.\n* The `ld` and `ldFor` show everything for 1+ such linked entity.",
-        "title":       "| LDH Modifier - High detail"
-      },
-      "modifierMedDetail":         {
-        "description": "***med*** level of *detail* - **Default**. \n\n* The ***entity*** includes all details i.e. all the core fields including identifiers, IRIs, revision ID, *entAliases*, *entContent* and provenance information.\n* The `ld` and `ldFor` show identifier level info.",
-        "title":       "| LDH Modifier - Med detail",
-        "allOf":       [
-          {
-            "$ref": "#/components/schemas/coreData"
-          },
-          {
-            "type":       "object",
-            "properties": {
-              "ld":    {
-                "$ref": "#/components/schemas/entityOnlyMedDetail"
-              },
-              "ldFor": {
-                "$ref": "#/components/schemas/entityOnlyMedDetail"
-              }
-            }
-          }
-        ]
-      },
-      "modifierLowDetail":         {
-        "title":       "| LDH Modifier - Low detail",
-        "description": "***low*** level of *detail*\n\n* The ***entity*** includes only identity level core fields i.e. identifiers, IRIs and revision ID and does not contain provenance information.\n* The `ld` and `ldFor` show just integer **counts** for 1+ such linked entity.",
-        "allOf":       [
-          {
-            "$ref": "#/components/schemas/idLevel"
-          },
-          {
-            "type":       "object",
-            "properties": {
-              "ld":    {
-                "$ref": "#/components/schemas/entityOnlyLowOrNoLdDetail"
-              },
-              "ldFor": {
-                "$ref": "#/components/schemas/entityOnlyLowOrNoLdDetail"
-              }
-            }
-          }
-        ]
-      },
-      "modifierNoLdDetail":        {
-        "allOf":       [
-          {
-            "$ref": "#/components/schemas/coreData"
-          },
-          {
-            "type":       "object",
-            "properties": {
-              "ld":    {
-                "$ref": "#/components/schemas/entityOnlyLowOrNoLdDetail"
-              },
-              "ldFor": {
-                "$ref": "#/components/schemas/entityOnlyLowOrNoLdDetail"
-              }
-            }
-          }
-        ],
-        "description": "***noLd*** level of *detail* - i.e do not show any detailed level of **linked data**.\n\n* The ***entity*** includes all details i.e. all the core fields including identifiers, IRIs, revision ID, *entAliases*, *entContent* and provenance information.\n*  The `ld` and `ldFor` show only the integer **counts** for 1+ such linked entity.",
-        "title":       "| LDH Modifier - noLd detail"
+        "description": "***data*** **model** - Fields describing an **entity**, found in the `data` section of the API response.\n\n* Contains both **entity** level data as well as the **linked data** for any linked entities"
       },
       "metadata":                  {
         "type":        "object",
-        "title":       "| LDH Common - Response Metadata",
+        "title":       "Response Metadata",
         "description": "***metadata*** **model** - Fields typically found in the `metadata` section of the API response.",
         "properties":  {
           "rendered": {
@@ -953,22 +893,23 @@
       },
       "status":                    {
         "type":        "object",
-        "title":       "| LDH Common - Response Status",
+        "title":       "Response Status",
         "description": "***status*** **model** - Fields typically found in the `status` section of the API response.",
         "properties":  {
           "code": {
             "type":        "integer",
             "description": "API Response Status Code",
-            "example":     200
+            "example":     404
           },
           "name": {
             "type":        "string",
             "description": "Descriptive name of the API response ",
-            "example":     "OK"
+            "example":     "Not Found"
           },
           "msg":  {
             "type":        "string",
             "description": "Optional message returned by the API response",
+            "example": "Bad Entity - No entities found for identifier "
           }
         },
         "required":    [
@@ -977,7 +918,7 @@
         ]
       },
       "coreData":                  {
-        "title":       "| LDH Common - Core",
+        "title":       "Core Data Model",
         "description": "***core data*** **model** - Fields describing an **entity**, found in the `data` section of the API response.",
         "allOf":       [
           {
@@ -1027,9 +968,268 @@
           }
         ]
       },
+      "linkedEntityData":                {
+        "title":       "Linked Entity Data",
+        "description": "***entity level data*** **model** - fields typically found in `data` section of the API response.\n\n* Contains all details at the level of an **entity**",
+        "oneOf":       [
+          {
+            "$ref": "#/components/schemas/entityOnlyLowOrNoLdDetail"
+          },
+          {
+            "$ref": "#/components/schemas/entityOnlyMedDetail"
+          },
+          {
+            "$ref": "#/components/schemas/entityOnlyHighDetail"
+          }
+        ]
+      },
+      "modifierHighDetail":        {
+        "allOf":       [
+          {
+            "$ref": "#/components/schemas/coreData"
+          },
+          {
+            "type":        "object",
+            "description": "* A list of what **linked-data** entity types (`ld`) this entity type can have\n* A list of what entity types this entity type acts as **linked-data for** (`ldFor`).",
+            "properties":  {
+              "ld":    {
+                "$ref": "#/components/schemas/entityOnlyHighDetail"
+              },
+              "ldFor": {
+                "$ref": "#/components/schemas/entityOnlyHighDetail"
+              }
+            }
+          }
+        ],
+        "description": "***high*** level of *detail*\n\n* The ***entity*** includes all details i.e. all the core fields including identifiers, IRIs, revision ID, *entAliases*, *entContent* and provenance information.\n* The `ld` and `ldFor` show everything for 1+ such linked entity.",
+        "title":       "| Modifier - Entity Response Level - High detail"
+      },
+      "modifierMedDetail":         {
+        "description": "***med*** level of *detail* - **Default**. \n\n* The ***entity*** includes all details i.e. all the core fields including identifiers, IRIs, revision ID, *entAliases*, *entContent* and provenance information.\n* The `ld` and `ldFor` show identifier level info.",
+        "title":       "| Modifier - Entity Response Level - Med detail",
+        "allOf":       [
+          {
+            "$ref": "#/components/schemas/coreData"
+          },
+          {
+            "type":       "object",
+            "properties": {
+              "ld":    {
+                "$ref": "#/components/schemas/entityOnlyMedDetail"
+              },
+              "ldFor": {
+                "$ref": "#/components/schemas/entityOnlyMedDetail"
+              }
+            }
+          }
+        ]
+      },
+      "modifierLowDetail":         {
+        "title":       "| Modifier - Entity Response Level - Low detail",
+        "description": "***low*** level of *detail*\n\n* The ***entity*** includes only identity level core fields i.e. identifiers, IRIs and revision ID and does not contain provenance information.\n* The `ld` and `ldFor` show just integer **counts** for 1+ such linked entity.",
+        "allOf":       [
+          {
+            "$ref": "#/components/schemas/idLevel"
+          },
+          {
+            "type":       "object",
+            "properties": {
+              "ld":    {
+                "$ref": "#/components/schemas/entityOnlyLowOrNoLdDetail"
+              },
+              "ldFor": {
+                "$ref": "#/components/schemas/entityOnlyLowOrNoLdDetail"
+              }
+            }
+          }
+        ]
+      },
+      "modifierNoLdDetail":        {
+        "allOf":       [
+          {
+            "$ref": "#/components/schemas/coreData"
+          },
+          {
+            "type":       "object",
+            "properties": {
+              "ld":    {
+                "$ref": "#/components/schemas/entityOnlyLowOrNoLdDetail"
+              },
+              "ldFor": {
+                "$ref": "#/components/schemas/entityOnlyLowOrNoLdDetail"
+              }
+            }
+          }
+        ],
+        "description": "***noLd*** level of *detail* - i.e do not show any detailed level of **linked data**.\n\n* The ***entity*** includes all details i.e. all the core fields including identifiers, IRIs, revision ID, *entAliases*, *entContent* and provenance information.\n*  The `ld` and `ldFor` show only the integer **counts** for 1+ such linked entity.",
+        "title":       "| Modifier - Entity Response Level - noLd detail"
+      },
+      "entityOnlyLowOrNoLdDetail": {
+        "type":        "object",
+        "title":       "| Modifier - Linked Entity Data Level - Low/noLd detail",
+        "description": "***low*** or ***noLd*** level of *detail* at **entity** level\n\n* Includes only integer counts of an entity",
+        "properties":  {
+          "{entType}": {
+            "type":        "integer",
+            "description": "**Type** of entity supported by LDH. The **key** `{entType}` will be one of the currently supported entity types:\n*Gene*, *RegulatoryElement*, *Variant*, *xqtlEvidence*, *AlleleSpecificEvidence*, *RoadmapRegulatoryElementEvidence*, *ENCODERegulatoryElementEvidence*, *RegulatoryElementActivityKnowledge*, *Publication*, *Context*\n"
+          }
+        }
+      },
+      "entityOnlyMedDetail":       {
+        "type":        "object",
+        "description": "***med*** level of *detail* at **entity** level\n\n* Includes only identity level core fields for each entity i.e. identifiers, IRIs and revision ID.\n* Does not contain provenance information.",
+        "title":       "| Modifier - Linked Entity Data Level - Med detail",
+        "properties":  {
+          "{entType}": {
+            "type":        "array",
+            "description": "**Type** of entity supported by LDH. The **key** `{entType}` will be one of the currently supported entity types:\n*Gene*, *RegulatoryElement*, *Variant*, *xqtlEvidence*, *AlleleSpecificEvidence*, *RoadmapRegulatoryElementEvidence*, *ENCODERegulatoryElementEvidence*, *RegulatoryElementActivityKnowledge*, *Publication*, *Context*\n",
+            "items":       {
+              "$ref": "#/components/schemas/idLevel"
+            }
+          }
+        }
+      },
+      "entityOnlyHighDetail":      {
+        "type":        "object",
+        "title":       "| Modifier - Linked Entity Data Level - High detail",
+        "description": "***high*** level of *detail* at **entity** level\n\n* Includes all fields for each entity.",
+        "properties":  {
+          "{entType}": {
+            "type":        "array",
+            "description": "**Type** of entity supported by LDH. The **key** `{entType}` will be one of the currently supported entity types:\n*Gene*, *RegulatoryElement*, *Variant*, *xqtlEvidence*, *AlleleSpecificEvidence*, *RoadmapRegulatoryElementEvidence*, *ENCODERegulatoryElementEvidence*, *RegulatoryElementActivityKnowledge*, *Publication*, *Context*\n",
+            "items":       {
+              "$ref": "#/components/schemas/coreData"
+            }
+          }
+        }
+      },
+      "Context-EntContent" : {
+        "title": "| Modifier - Entity Content entType - Context",
+        "properties": {
+          "preferredName": { "type": "string" },
+        },
+      },
+      "Publication-EntContent" : {
+        "title": "| Modifier - Entity Content entType - Publication",
+        "properties": {
+          "title": { "type": "string" },
+          "doi":   { "type": "string" },
+          "date":  { "type": "string" },
+          "firstAuthor": { "type": "string" }
+        },
+        "required": ["title", "doi", "date"],
+      },
+      "RegulatoryElementActivityKnowledge-EntContent" : {
+        "title": "| Modifier - Entity Content entType - RegulatoryElementActivityKnowledge",
+        "properties": {
+          "EvidenceNames": { "$ref": "#/components/schemas/Common-EntContent-evidenceId" },
+          "RegulatoryElement": {
+            "properties": {
+              "type": {"type": "string"},
+              "state": {"type": "string"}
+            },
+          },
+          "sourceDescription": { "type": "string" }
+        },
+        "required":[" EvidenceNames", "RegulatoryElement"],
+      },
+      "ENCODERegulatoryElementEvidence-EntContent": {
+        "title": "| Modifier - Entity Content entType - ENCODERegulatoryElementEvidence",
+        "properties": {
+          "EvidenceNames": { "$ref": "#/components/schemas/Common-EntContent-evidenceId" },
+          "RegulatoryElement": {
+            "properties": {
+              "type": {"type": "string"},
+              "state": {"type": "string"}
+            },
+          },
+          "zscore": {
+            "required": ["DNase"],
+            "properties": {
+              "DNase": { "type": "number"},
+              "H3K4me3": { "type": "number"},
+              "H3K27ac": { "type": "number"},
+              "CTCF": { "type": "number"}
+            },
+          },
+          "api": { "type": "string" },
+          "sourceDescription": { "type": "string" }
+        },
+        "required": ["EvidenceNames", "RegulatoryElement", "zscore"],
+      },
+      "RoadmapRegulatoryElementEvidence-EntContent": {
+        "title": "| Modifier - Entity Content entType - RoadmapRegulatoryElementEvidence",
+        "properties": {
+          "EvidenceNames": { "$ref": "#/components/schemas/Common-EntContent-evidenceId" },
+          "RoadmapRegulatoryElement": {
+            "properties": {
+              "chr": { "type": "string" },
+              "startCoordinate": { "type": "integer" },
+              "endCoordinate": { "type": "integer" },
+              "type": { "type": "string" }
+            },
+          },
+          "histone": {
+            "properties": {
+              "H3K9me3":  { "$ref": "#/components/schemas/Common-EntContent-enriched" },
+              "H3K27ac":  { "$ref": "#/components/schemas/Common-EntContent-enriched" },
+              "H3K27me3": { "$ref": "#/components/schemas/Common-EntContent-enriched" },
+              "H3K4me1":  { "$ref": "#/components/schemas/Common-EntContent-enriched" },
+              "H3K4me3":  { "$ref": "#/components/schemas/Common-EntContent-enriched" },
+              "H3K36me3": { "$ref": "#/components/schemas/Common-EntContent-enriched" }
+            },
+          },
+          "sourceDescription": { "type": "string" }
+        },
+        "required": ["EvidenceNames", "RoadmapRegulatoryElement"],
+      },
+      "AlleleSpecificEvidence-EntContent":    {
+        "title": "| Modifier - Entity Content entType - AlleleSpecificEvidence",
+        "required": ["EvidenceNames", "score", "AlleleSpecificity"],
+        "properties": {
+          "EvidenceNames": { "$ref": "#/components/schemas/Common-EntContent-evidenceId"},
+          "score": { "type": "integer" },
+          "AlleleSpecificity": {
+            "properties": {
+              "TF": {
+                "properties": {
+                  "CFCT": { "$ref": "#/components/schemas/Common-EntContent-alleleSpecificity" },
+                  "POLR2A": { "$ref": "#/components/schemas/Common-EntContent-alleleSpecificity" },
+                  "POLR2AP5": { "$ref": "#/components/schemas/Common-EntContent-alleleSpecificity" },
+                  "EP300": { "$ref": "#/components/schemas/Common-EntContent-alleleSpecificity" }
+                },
+              },
+              "HM": {
+                "properties": {
+                  "H3K4me1": { "$ref": "#/components/schemas/Common-EntContent-alleleSpecificity" },
+                  "H3K4me3": { "$ref": "#/components/schemas/Common-EntContent-alleleSpecificity" },
+                  "H3K27ac": { "$ref": "#/components/schemas/Common-EntContent-alleleSpecificity" },
+                  "H3K27me3": { "$ref": "#/components/schemas/Common-EntContent-alleleSpecificity" }
+                },
+              },
+              "DNAme": { "$ref": "#/components/schemas/Common-EntContent-alleleSpecificity" },
+              "DNase": { "$ref": "#/components/schemas/Common-EntContent-alleleSpecificity" },
+              "ATAC": { "$ref": "#/components/schemas/Common-EntContent-alleleSpecificity" }
+            },
+          },
+          "sourceDescription": { "type": "string" }
+        },
+      },
+      "xqtlEvidence-EntContent": {
+        "title": "| Modifier - Entity Content entType - xqtlEvidence",
+        "required": ["EvidenceNames", "score", "GTExIri"],
+        "properties": {
+          "EvidenceNames": { "$ref": "#/components/schemas/Common-EntContent-evidenceId" },
+          "score": { "type": "integer" },
+          "GTExIri": { "type": "string" },
+          "eQTL": { "$ref": "#/components/schemas/Common-EntContent-qtlEffect" },
+          "sQTL": { "$ref": "#/components/schemas/Common-EntContent-qtlEffect" },
+          "sourceDescription": { "type": "string" }
+        },
+      },
       "entAliases":                {
         "type":        "array",
-        "title":       "| LDH Common - Entity Aliases",
+        "title":       "| Data - Entity Aliases",
         "description": "***entAliases*** **model** - Fields describing this entity in an external source.",
         "items":       {
           "type":       "object",
@@ -1057,7 +1257,7 @@
       },
       "entContentSrc":             {
         "type":        "array",
-        "title":       "| LDH Common - Entity Content Source",
+        "title":       "| Data - Entity Content Source",
         "description": "***entContentSrc*** **model** - External source metadata\n\n* Metadata about the excerpt content (i.e. `entContent`) at the external data source (i.e. the source from which data was obtained). \n* Also stores the genome build, url and version number of the source.",
         "items":       {
           "type":       "object",
@@ -1091,7 +1291,7 @@
       },
       "entTypeCounts":             {
         "type":        "object",
-        "title":       "| LDH Common - Entity Type Counts",
+        "title":       "| Data - Entity Type Counts",
         "description": "***entType counts*** **model** - Entity type counts with averages.\n\n* `ldPerEnt` - Average linked data an entity of a certain type **HAS**.\n* `ldForPerEnt` - Average linked data an entity of a certain type **IS**.\n",
         "properties":  {
           "avg":      {
@@ -1114,26 +1314,9 @@
           },
         }
       },
-      "entTypeCountsSummary": {
-        "description": "Summary of entity type counts",
-        "title": "Entity Type Counts Summary",
-        "allOf" : [
-          {
-            "$ref":  "#/components/schemas/entTypeCounts"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "iri": {
-                "type": "string",
-              }
-            }
-          }
-        ]
-      },
       "idLevel":                   {
         "type":        "object",
-        "title":       "| LDH Common - Identifier Level",
+        "title":       "| Data - Entity Identifiers",
         "description": "***id level fields*** **model** \n\n* Includes only *identifier level* fields. ",
         "properties":  {
           "entId":   {
@@ -1185,224 +1368,14 @@
           "rev"
         ]
       },
-      "data": {
-        "title":       "| LDH Common - Data",
-        "oneOf":       [
-          {
-            "$ref": "#/components/schemas/modifierHighDetail"
-          },
-          {
-            "$ref": "#/components/schemas/modifierMedDetail"
-          },
-          {
-            "$ref": "#/components/schemas/modifierNoLdDetail"
-          },
-          {
-            "$ref": "#/components/schemas/modifierLowDetail"
-          }
-        ],
-        "description": "***data*** **model** - Fields describing an **entity**, found in the `data` section of the API response.\n\n* Contains both **entity** level data as well as the **linked data** for 1+ linked entities"
-      },
-      "entityData":                {
-        "title":       "| LDH Common - Entity Level Data",
-        "description": "***entity level data*** **model** - fields typically found in `data` section of the API response.\n\n* Contains all details at the level of an **entity**",
-        "oneOf":       [
-          {
-            "$ref": "#/components/schemas/entityOnlyLowOrNoLdDetail"
-          },
-          {
-            "$ref": "#/components/schemas/entityOnlyMedDetail"
-          },
-          {
-            "$ref": "#/components/schemas/entityOnlyHighDetail"
-          }
-        ]
-      },
-      "entityOnlyLowOrNoLdDetail": {
-        "type":        "object",
-        "title":       "| LDH Modifier - Entity Level Low/noLd detail",
-        "description": "***low*** or ***noLd*** level of *detail* at **entity** level\n\n* Includes only integer counts of an entity",
-        "properties":  {
-          "{entType}": {
-            "type":        "integer",
-            "description": "**Type** of entity supported by LDH. The **key** `{entType}` will be one of the currently supported entity types:\n*Gene*, *RegulatoryElement*, *Variant*, *xqtlEvidence*, *AlleleSpecificEvidence*, *RoadmapRegulatoryElementEvidence*, *ENCODERegulatoryElementEvidence*, *RegulatoryElementActivityKnowledge*, *Publication*, *Context*\n"
-          }
-        }
-      },
-      "entityOnlyMedDetail":       {
-        "type":        "object",
-        "description": "***med*** level of *detail* at **entity** level\n\n* Includes only identity level core fields for each entity i.e. identifiers, IRIs and revision ID.\n* Does not contain provenance information.",
-        "title":       "| LDH Modifier - Entity Level Med detail",
-        "properties":  {
-          "{entType}": {
-            "type":        "array",
-            "description": "**Type** of entity supported by LDH. The **key** `{entType}` will be one of the currently supported entity types:\n*Gene*, *RegulatoryElement*, *Variant*, *xqtlEvidence*, *AlleleSpecificEvidence*, *RoadmapRegulatoryElementEvidence*, *ENCODERegulatoryElementEvidence*, *RegulatoryElementActivityKnowledge*, *Publication*, *Context*\n",
-            "items":       {
-              "$ref": "#/components/schemas/idLevel"
-            }
-          }
-        }
-      },
-      "entityOnlyHighDetail":      {
-        "type":        "object",
-        "title":       "| LDH Modifier - Entity Level High detail",
-        "description": "***high*** level of *detail* at **entity** level\n\n* Includes all fields for each entity.",
-        "properties":  {
-          "{entType}": {
-            "type":        "array",
-            "description": "**Type** of entity supported by LDH. The **key** `{entType}` will be one of the currently supported entity types:\n*Gene*, *RegulatoryElement*, *Variant*, *xqtlEvidence*, *AlleleSpecificEvidence*, *RoadmapRegulatoryElementEvidence*, *ENCODERegulatoryElementEvidence*, *RegulatoryElementActivityKnowledge*, *Publication*, *Context*\n",
-            "items":       {
-              "$ref": "#/components/schemas/coreData"
-            }
-          }
-        }
-      },
-      "Context-EntContent" : {
-        "title": "EntContent for Context",
-        "properties": {
-          "preferredName": { "type": "string" },
-        },
-        "additionalProperties": false
-      },
-      "Publication-EntContent" : {
-        "title": "EntContent for Publication",
-        "properties": {
-          "title": { "type": "string" },
-          "doi":   { "type": "string" },
-          "date":  { "type": "string" },
-          "firstAuthor": { "type": "string" }
-        },
-        "required": ["title", "doi", "date"],
-        "additionalProperties": false
-      },
-      "RegulatoryElementActivityKnowledge-EntContent" : {
-        "title": "EntContent for RegulatoryElementActivityKnowledge",
-        "properties": {
-          "EvidenceNames": { "$ref": "#/components/schemas/Common-EntContent-evidenceId" },
-          "RegulatoryElement": {
-            "properties": {
-              "type": {"type": "string"},
-              "state": {"type": "string"}
-            },
-          },
-          "sourceDescription": { "type": "string" }
-        },
-        "required":[" EvidenceNames", "RegulatoryElement"],
-        "additionalProperties": false
-      },
-      "ENCODERegulatoryElementEvidence-EntContent": {
-        "title": "EntContent for ENCODERegulatoryElementEvidence",
-        "properties": {
-          "EvidenceNames": { "$ref": "#/components/schemas/Common-EntContent-evidenceId" },
-          "RegulatoryElement": {
-            "properties": {
-              "type": {"type": "string"},
-              "state": {"type": "string"}
-            },
-            "additionalProperties": false
-          },
-          "zscore": {
-            "required": ["DNase"],
-            "properties": {
-              "DNase": { "type": "number"},
-              "H3K4me3": { "type": "number"},
-              "H3K27ac": { "type": "number"},
-              "CTCF": { "type": "number"}
-            },
-            "additionalProperties": false
-          },
-          "api": { "type": "string" },
-          "sourceDescription": { "type": "string" }
-        },
-        "required": ["EvidenceNames", "RegulatoryElement", "zscore"],
-        "additionalProperties": false
-      },
-      "RoadmapRegulatoryElementEvidence-EntContent": {
-        "title": "EntContent for RoadmapRegulatoryElementEvidence",
-        "properties": {
-          "EvidenceNames": { "$ref": "#/components/schemas/Common-EntContent-evidenceId" },
-          "RoadmapRegulatoryElement": {
-            "properties": {
-              "chr": { "type": "string" },
-              "startCoordinate": { "type": "integer" },
-              "endCoordinate": { "type": "integer" },
-              "type": { "type": "string" }
-            },
-            "additionalProperties": false
-          },
-          "histone": {
-            "properties": {
-              "H3K9me3":  { "$ref": "#/components/schemas/Common-EntContent-enriched" },
-              "H3K27ac":  { "$ref": "#/components/schemas/Common-EntContent-enriched" },
-              "H3K27me3": { "$ref": "#/components/schemas/Common-EntContent-enriched" },
-              "H3K4me1":  { "$ref": "#/components/schemas/Common-EntContent-enriched" },
-              "H3K4me3":  { "$ref": "#/components/schemas/Common-EntContent-enriched" },
-              "H3K36me3": { "$ref": "#/components/schemas/Common-EntContent-enriched" }
-            },
-            "additionalProperties": false
-          },
-          "sourceDescription": { "type": "string" }
-        },
-        "required": ["EvidenceNames", "RoadmapRegulatoryElement"],
-        "additionalProperties": false
-      },
-      "AlleleSpecificEvidence-EntContent":    {
-        "title": "EntContent for AlleleSpecificEvidence",
-        "required": ["EvidenceNames", "score", "AlleleSpecificity"],
-        "properties": {
-          "EvidenceNames": { "$ref": "#/components/schemas/Common-EntContent-evidenceId"},
-          "score": { "type": "integer" },
-          "AlleleSpecificity": {
-            "properties": {
-              "TF": {
-                "properties": {
-                  "CFCT": { "$ref": "#/components/schemas/Common-EntContent-alleleSpecificity" },
-                  "POLR2A": { "$ref": "#/components/schemas/Common-EntContent-alleleSpecificity" },
-                  "POLR2AP5": { "$ref": "#/components/schemas/Common-EntContent-alleleSpecificity" },
-                  "EP300": { "$ref": "#/components/schemas/Common-EntContent-alleleSpecificity" }
-                },
-                "additionalProperties": false
-              },
-              "HM": {
-                "properties": {
-                  "H3K4me1": { "$ref": "#/components/schemas/Common-EntContent-alleleSpecificity" },
-                  "H3K4me3": { "$ref": "#/components/schemas/Common-EntContent-alleleSpecificity" },
-                  "H3K27ac": { "$ref": "#/components/schemas/Common-EntContent-alleleSpecificity" },
-                  "H3K27me3": { "$ref": "#/components/schemas/Common-EntContent-alleleSpecificity" }
-                },
-                "additionalProperties": false
-              },
-              "DNAme": { "$ref": "#/components/schemas/Common-EntContent-alleleSpecificity" },
-              "DNase": { "$ref": "#/components/schemas/Common-EntContent-alleleSpecificity" },
-              "ATAC": { "$ref": "#/components/schemas/Common-EntContent-alleleSpecificity" }
-            },
-            "additionalProperties": false
-          },
-          "sourceDescription": { "type": "string" }
-        },
-        "additionalProperties": false
-      },
-      "xqtlEvidence-EntContent": {
-        "title": "EntContent for xqtlEvidence",
-        "required": ["EvidenceNames", "score", "GTExIri"],
-        "properties": {
-          "EvidenceNames": { "$ref": "#/components/schemas/Common-EntContent-evidenceId" },
-          "score": { "type": "integer" },
-          "GTExIri": { "type": "string" },
-          "eQTL": { "$ref": "#/components/schemas/Common-EntContent-qtlEffect" },
-          "sQTL": { "$ref": "#/components/schemas/Common-EntContent-qtlEffect" },
-          "sourceDescription": { "type": "string" }
-        },
-        "additionalProperties": false
-      },
       "Common-EntContent-enriched" : {
-        "title": "enriched",
+        "title": "| Data - Entity Content - Enriched",
         "properties": {
           "enriched": { "type": "boolean" }
         },
       },
       "Common-EntContent-alleleSpecificity": {
-        "title": "alleleSpecificity",
+        "title": "| Data - Entity Content - Allele Specificity",
         "properties": {
           "refAlleleQuant": { "type":  "number" },
           "altAlleleQuant": { "type":  "number" },
@@ -1410,7 +1383,7 @@
         },
       },
       "Common-EntContent-qtlEffect": {
-        "title": "qtlEffect",
+        "title": "| Data - Entity Content - qtl Effect",
         "properties": {
           "GeneEntId": { "type": "string" },
           "nes": { "type": "number" },
@@ -1418,7 +1391,7 @@
         },
       },
       "Common-EntContent-evidenceId": {
-        "title": "evidenceId",
+        "title": "| Data - Entity Content - Evidence Id",
         "type": "array",
         "items": {
           "type": "object",
@@ -1427,6 +1400,23 @@
             "evidenceName": { "type": "string" }
           },
         }
+      },
+      "entTypeCountsSummary": {
+        "description": "Summary of entity type counts",
+        "title": "| Data - Entity Type Counts Summary",
+        "allOf" : [
+          {
+            "$ref":  "#/components/schemas/entTypeCounts"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "iri": {
+                "type": "string",
+              }
+            }
+          }
+        ]
       },
     },
   },
