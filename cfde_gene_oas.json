@@ -942,12 +942,6 @@
                 "description": "Modification **timestamp** value ",
                 "format":      "date"
               },
-              "entContentSrc": {
-                "$ref": "#/components/schemas/entContentSrc"
-              },
-              "entAliases":    {
-                "$ref": "#/components/schemas/entAliases"
-              },
               "entContent":    {
                 "title": "| Data - Entity Content",
                 "oneOf": [
@@ -1007,11 +1001,11 @@
             }
           }
         ],
-        "description": "***high*** level of *detail*\n\n* The ***entity*** includes all details i.e. all the core fields including identifiers, IRIs, revision ID, *entAliases*, *entContent* and provenance information.\n* The `ld` and `ldFor` show everything for 1+ such linked entity.",
+        "description": "***high*** level of *detail*\n\n* The ***entity*** includes all details i.e. all the core fields including identifiers, IRIs, revision ID, *entContent* and provenance information.\n* The `ld` and `ldFor` show everything for 1+ such linked entity.",
         "title":       "| Modifier - Entity Response Level - High detail"
       },
       "modifierMedDetail":         {
-        "description": "***med*** level of *detail* - **Default**. \n\n* The ***entity*** includes all details i.e. all the core fields including identifiers, IRIs, revision ID, *entAliases*, *entContent* and provenance information.\n* The `ld` and `ldFor` show identifier level info.",
+        "description": "***med*** level of *detail* - **Default**. \n\n* The ***entity*** includes all details i.e. all the core fields including identifiers, IRIs, revision ID, , *entContent* and provenance information.\n* The `ld` and `ldFor` show identifier level info.",
         "title":       "| Modifier - Entity Response Level - Med detail",
         "allOf":       [
           {
@@ -1067,7 +1061,7 @@
             }
           }
         ],
-        "description": "***noLd*** level of *detail* - i.e do not show any detailed level of **linked data**.\n\n* The ***entity*** includes all details i.e. all the core fields including identifiers, IRIs, revision ID, *entAliases*, *entContent* and provenance information.\n*  The `ld` and `ldFor` show only the integer **counts** for 1+ such linked entity.",
+        "description": "***noLd*** level of *detail* - i.e do not show any detailed level of **linked data**.\n\n* The ***entity*** includes all details i.e. all the core fields including identifiers, IRIs, revision ID, *entContent* and provenance information.\n*  The `ld` and `ldFor` show only the integer **counts** for 1+ such linked entity.",
         "title":       "| Modifier - Entity Response Level - noLd detail"
       },
       "entityOnlyLowOrNoLdDetail": {
@@ -1233,68 +1227,6 @@
           "sourceDescription": { "type": "string" }
         },
       },
-      "entAliases":                {
-        "type":        "array",
-        "title":       "| Data - Entity Aliases",
-        "description": "***entAliases*** **model** - Fields describing this entity in an external source.",
-        "items":       {
-          "type":       "object",
-          "properties": {
-            "id":    {
-              "type":        "string",
-              "description": "**Identifier** of the entity in an external data source",
-              "example":     "161266"
-            },
-            "iri":   {
-              "type":        "string",
-              "description": "**IRI** of the entity in an external data source",
-              "example":     "https://www.ncbi.nlm.nih.gov/clinvar/variation/161266/"
-            },
-            "label": {
-              "type":        "string",
-              "description": "**Label** describing the external data source",
-              "example":     "ClinVar"
-            }
-          },
-          "required":   [
-            "id"
-          ]
-        }
-      },
-      "entContentSrc":             {
-        "type":        "array",
-        "title":       "| Data - Entity Content Source",
-        "description": "***entContentSrc*** **model** - External source metadata\n\n* Metadata about the excerpt content (i.e. `entContent`) at the external data source (i.e. the source from which data was obtained). \n* Also stores the genome build, url and version number of the source.",
-        "items":       {
-          "type":       "object",
-          "properties": {
-            "genomeBuild": {
-              "type":        "string",
-              "example":     "GRCh38",
-              "description": "**Genome Build** of the data embedded within LDH or derived from an external data source or "
-            },
-            "source":      {
-              "type":        "string",
-              "example":     "ensembl-vep",
-              "description": "**Name** of the external data source"
-            },
-            "url":         {
-              "type":        "string",
-              "description": "**URL** of the external data source",
-              "format":      "uri"
-            },
-            "ver":         {
-              "type":        "string",
-              "description": "**Version** information of the data in the external data source",
-              "example":     "96.0"
-            }
-          },
-          "required":   [
-            "source",
-            "url"
-          ]
-        }
-      },
       "entTypeCounts":             {
         "type":        "object",
         "title":       "| Data - Entity Type Counts",
@@ -1338,6 +1270,7 @@
           "entType": {
             "type":        "string",
             "description": "**Type** of entity supported by LDH.",
+            "example": "Variant",
             "enum":        [
               "Gene",
               "Variant",
