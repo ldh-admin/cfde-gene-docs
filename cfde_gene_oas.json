@@ -1,26 +1,31 @@
 {
   "openapi":    "3.0.0",
   "info":       {
-    "version":     "1.0",
+    "version":     "1.3.2",
     "title":       "Common Fund Data Ecosystem Gene Regulation Linked Data Hub",
-    "description": "[**OpenAPI Specification (OAS)**](https://github.com/OAI/OpenAPI-Specification) for the ***CFDE Gene Regulation Linked Data Hub REST API Design***.\n\n* Contains generic information about the **CFDE Gene Regulation Linked Data Hub** API.\n* Provides information about payload, response codes, modifiers, core fields in the response, etc\n* Responses will be structured JSON-LD, with natural hierarchical organization.\n\n**NOTE**: Response description of several endpoints in this documentation refer to a dynamic property name `entType`. It is one of the currently supported entity types in LDH. \nEntity content will vary depending on the `entType` path parameter used in the lookup. Descriptions of the different entities supported by CFDE Gene LDH and the schemas for their `entContent` is available in the ***Components*** tab of this documentation.\n\n## Disclaimer\n\n* **BETA RELEASE.** \n\t* This version of the CFDE Gene LDH service and content is BETA. Additional features are under development. \n\t* Content and representations are subject to change.\n\t* Service and content addresses are subject to change.\n\t* Service and content IRIs are not permalinks and are subject to change.\n\t\n* The OAS3 Spec is intended mainly for documentation and description of the API, interoperability development, general assessment, and illustration.  ",
+    "description": "[**OpenAPI Specification (OAS3)**](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md) for the ***CFDE Gene Regulation Linked Data Hub REST API Design***.\n\n* Contains generic information about the **CFDE Gene Regulation Linked Data Hub** API.\n* Provides information about payload, response codes, modifiers, core fields in the response, etc\n* Responses will be structured JSON-LD, with natural hierarchical organization.\n\n**NOTE**: Response description of several endpoints in this documentation refer to a dynamic property name `entType`. It is one of the currently supported entity types in LDH. \nEntity content will vary depending on the `entType` path parameter used in the lookup. Descriptions of the different entities supported by CFDE Gene LDH and the schemas for their `entContent` is available in the ***Components*** tab of this documentation.\n\n## Disclaimer\n\n* **BETA RELEASE.** \n\t* This version of the CFDE Gene LDH service and content is BETA. Additional features are under development. \n\t* Content and representations are subject to change.\n\t* Service and content addresses are subject to change.\n\t* Service and content IRIs are not permalinks and are subject to change.\n\t\n* The OAS3 Spec is intended mainly for documentation and description of the API, interoperability development, general assessment, and illustration.  ",
     "contact":     {
       "name":  "CFDE Informatics Team at Baylor College of Medicine",
-      "url":   "https://genboree.org/cfde-gene-dev/",
-      "email": "ldh-admin@bcm.edu"
+      "url":   "https://genboree.org/cfde-gene-dev/ui",
+      "email": "ldh-admin@bcm.edu",
+      "x-role": "responsible developer"
     },
     "license":     {
-      "name": "MIT"
-    }
+      "name": "MIT",
+      "url": "https://github.com/ldh-team/cfde-gene-docs/blob/main/LICENSE"
+    },
+    "termsOfService": "https://genboree.org/cfde-gene-dev/srvc"
   },
   "servers": [
     {
       "url": "https://genboree.org/cfde-gene-dev",
-      "description": "Development server"
+      "description": "Development server",
+      "x-maturity": "development"
     },
     {
       "url": "https://genboree.org/cfde-gene",
-      "description": "Production server"
+      "description": "Production server",
+      "x-maturity": "production"
     }
   ],
   "paths":      {
@@ -944,6 +949,7 @@
                 "$ref": "#/components/schemas/entAliases"
               },
               "entContent":    {
+                "title": "| Data - Entity Content",
                 "oneOf": [
                   {
                     "$ref": "#/components/schemas/Context-EntContent"
