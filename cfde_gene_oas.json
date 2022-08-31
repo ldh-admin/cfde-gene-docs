@@ -29,7 +29,7 @@
     }
   ],
   "paths":      {
-    "/srvc":                        {
+    "/srvc":                           {
       "get": {
         "responses":   {
           "200": {
@@ -232,7 +232,26 @@
         ],
         "parameters":  [
           {
-            "$ref": "#/components/parameters/entType"
+            "in":          "path",
+            "required":    true,
+            "name":        "entType",
+            "example": "RegulatoryElement",
+            "description": "A valid ***entity type*** in LDH.\n**Example:** *RegulatoryElement*",
+            "schema": {
+              "type":        "string",
+              "enum": [
+                "Gene",
+                "Variant",
+                "RegulatoryElement",
+                "AlleleSpecificEvidence",
+                "xqtlEvidence",
+                "RoadmapRegulatoryElementEvidence",
+                "ENCODERegulatoryElementEvidence",
+                "RegulatoryElementActivityKnowledge",
+                "Context",
+                "Publication"
+              ]
+            }
           }
         ]
       },
@@ -242,7 +261,7 @@
         }
       ]
     },
-    "/id/{val}":                    {
+    "/id/{val}":                       {
       "get":        {
         "responses":   {
           "200": {
@@ -287,7 +306,14 @@
         "description": "## Non-specific **identity-based** **untyped** lookup\n\n Get an LDH entity via its \"natural\" (domain-relevant & ideally external) identifier or using the internal LDH identifier.\n* The identifier can be one of:\n>* `entId` - Identifier of the entity in the external data source. **Example**: Gene entId: *COL1A2*\n>* `ldhId` - LDH identifier. **Example**: For the gene COL1A2 , the LDH Identifier is: *1339464779*\n>",
         "parameters":  [
           {
-            "$ref": "#/components/parameters/val"
+            "name":        "val",
+            "in":          "path",
+            "schema": {
+              "type":        "string"
+            },
+            "example": "EH38E0063500",
+            "required":    true,
+            "description": "***val*** can be any identifier or IRI that is accepted in LDH. This includes:\n* internal LDH `ldhId`\n* `entId` of an external data source such as ClinVar ID or gnomAD ID or links/IRIs to the resources in the external data source.\n\n**Examples:** *CA12505803*; *COL1A2*; *EH38E0063500*;  "
           },
           {
             "$ref": "#/components/parameters/detail"
@@ -351,7 +377,26 @@
         ],
         "parameters":  [
           {
-            "$ref": "#/components/parameters/entType"
+            "in":          "path",
+            "required":    true,
+            "name":        "entType",
+            "example": "RegulatoryElement",
+            "description": "A valid ***entity type*** in LDH.\n**Example:** *RegulatoryElement*",
+            "schema": {
+              "type":        "string",
+              "enum": [
+                "Gene",
+                "Variant",
+                "RegulatoryElement",
+                "AlleleSpecificEvidence",
+                "xqtlEvidence",
+                "RoadmapRegulatoryElementEvidence",
+                "ENCODERegulatoryElementEvidence",
+                "RegulatoryElementActivityKnowledge",
+                "Context",
+                "Publication"
+              ]
+            }
           },
           {
             "$ref": "#/components/parameters/detail"
@@ -408,10 +453,36 @@
         "summary":     "Entity By Specific ID",
         "parameters":  [
           {
-            "$ref": "#/components/parameters/entType"
+            "in":          "path",
+            "required":    true,
+            "name":        "entType",
+            "example": "RegulatoryElement",
+            "description": "A valid ***entity type*** in LDH.\n**Example:** *RegulatoryElement*",
+            "schema": {
+              "type":        "string",
+              "enum": [
+                "Gene",
+                "Variant",
+                "RegulatoryElement",
+                "AlleleSpecificEvidence",
+                "xqtlEvidence",
+                "RoadmapRegulatoryElementEvidence",
+                "ENCODERegulatoryElementEvidence",
+                "RegulatoryElementActivityKnowledge",
+                "Context",
+                "Publication"
+              ]
+            }
           },
           {
-            "$ref": "#/components/parameters/val"
+            "name":        "val",
+            "in":          "path",
+            "schema": {
+              "type":        "string"
+            },
+            "example": "EH38E0063500",
+            "required":    true,
+            "description": "***val*** can be any identifier or IRI that is accepted in LDH. This includes:\n* internal LDH `ldhId`\n* `entId` of an external data source such as ClinVar ID or gnomAD ID or links/IRIs to the resources in the external data source.\n\n**Examples:** *CA12505803*; *COL1A2*; *EH38E0063500*;  "
           },
           {
             "$ref": "#/components/parameters/detail"
@@ -465,10 +536,36 @@
         "operationId": "getLdObjForEntTypeBySpecificId",
         "parameters":  [
           {
-            "$ref": "#/components/parameters/entType"
+            "in":          "path",
+            "required":    true,
+            "name":        "entType",
+            "example": "RegulatoryElement",
+            "description": "A valid ***entity type*** in LDH.\n**Example:** *RegulatoryElement*",
+            "schema": {
+              "type":        "string",
+              "enum": [
+                "Gene",
+                "Variant",
+                "RegulatoryElement",
+                "AlleleSpecificEvidence",
+                "xqtlEvidence",
+                "RoadmapRegulatoryElementEvidence",
+                "ENCODERegulatoryElementEvidence",
+                "RegulatoryElementActivityKnowledge",
+                "Context",
+                "Publication"
+              ]
+            }
           },
           {
-            "$ref": "#/components/parameters/val"
+            "name":        "val",
+            "in":          "path",
+            "schema": {
+              "type":        "string"
+            },
+            "example": "EH38E0063500",
+            "required":    true,
+            "description": "***val*** can be any identifier or IRI that is accepted in LDH. This includes:\n* internal LDH `ldhId`\n* `entId` of an external data source such as ClinVar ID or gnomAD ID or links/IRIs to the resources in the external data source.\n\n**Examples:** *CA12505803*; *COL1A2*; *EH38E0063500*;  "
           },
           {
             "$ref": "#/components/parameters/detail"
@@ -527,10 +624,36 @@
         "operationId": "getLdForObjForEntTypeBySpecificId",
         "parameters":  [
           {
-            "$ref": "#/components/parameters/entType"
+            "in":          "path",
+            "required":    true,
+            "name":        "entType",
+            "example": "RegulatoryElement",
+            "description": "A valid ***entity type*** in LDH.\n**Example:** *RegulatoryElement*",
+            "schema": {
+              "type":        "string",
+              "enum": [
+                "Gene",
+                "Variant",
+                "RegulatoryElement",
+                "AlleleSpecificEvidence",
+                "xqtlEvidence",
+                "RoadmapRegulatoryElementEvidence",
+                "ENCODERegulatoryElementEvidence",
+                "RegulatoryElementActivityKnowledge",
+                "Context",
+                "Publication"
+              ]
+            }
           },
           {
-            "$ref": "#/components/parameters/val"
+            "name":        "val",
+            "in":          "path",
+            "schema": {
+              "type":        "string"
+            },
+            "example": "EH38E0063500",
+            "required":    true,
+            "description": "***val*** can be any identifier or IRI that is accepted in LDH. This includes:\n* internal LDH `ldhId`\n* `entId` of an external data source such as ClinVar ID or gnomAD ID or links/IRIs to the resources in the external data source.\n\n**Examples:** *CA12505803*; *COL1A2*; *EH38E0063500*;  "
           },
           {
             "$ref": "#/components/parameters/detail"
@@ -592,10 +715,36 @@
         ],
         "parameters":  [
           {
-            "$ref": "#/components/parameters/entType"
+            "in":          "path",
+            "required":    true,
+            "name":        "entType",
+            "example": "RegulatoryElement",
+            "description": "A valid ***entity type*** in LDH.\n**Example:** *RegulatoryElement*",
+            "schema": {
+              "type":        "string",
+              "enum": [
+                "Gene",
+                "Variant",
+                "RegulatoryElement",
+                "AlleleSpecificEvidence",
+                "xqtlEvidence",
+                "RoadmapRegulatoryElementEvidence",
+                "ENCODERegulatoryElementEvidence",
+                "RegulatoryElementActivityKnowledge",
+                "Context",
+                "Publication"
+              ]
+            }
           },
           {
-            "$ref": "#/components/parameters/val"
+            "name":        "val",
+            "in":          "path",
+            "schema": {
+              "type":        "string"
+            },
+            "example": "EH38E0063500",
+            "required":    true,
+            "description": "***val*** can be any identifier or IRI that is accepted in LDH. This includes:\n* internal LDH `ldhId`\n* `entId` of an external data source such as ClinVar ID or gnomAD ID or links/IRIs to the resources in the external data source.\n\n**Examples:** *CA12505803*; *COL1A2*; *EH38E0063500*;  "
           },
           {
             "$ref": "#/components/parameters/detail"
@@ -639,10 +788,36 @@
         },
         "parameters":  [
           {
-            "$ref": "#/components/parameters/entType"
+            "in":          "path",
+            "required":    true,
+            "name":        "entType",
+            "example": "RegulatoryElement",
+            "description": "A valid ***entity type*** in LDH.\n**Example:** *RegulatoryElement*",
+            "schema": {
+              "type":        "string",
+              "enum": [
+                "Gene",
+                "Variant",
+                "RegulatoryElement",
+                "AlleleSpecificEvidence",
+                "xqtlEvidence",
+                "RoadmapRegulatoryElementEvidence",
+                "ENCODERegulatoryElementEvidence",
+                "RegulatoryElementActivityKnowledge",
+                "Context",
+                "Publication"
+              ]
+            }
           },
           {
-            "$ref": "#/components/parameters/val"
+            "name":        "val",
+            "in":          "path",
+            "schema": {
+              "type":        "string"
+            },
+            "example": "EH38E0063500",
+            "required":    true,
+            "description": "***val*** can be any identifier or IRI that is accepted in LDH. This includes:\n* internal LDH `ldhId`\n* `entId` of an external data source such as ClinVar ID or gnomAD ID or links/IRIs to the resources in the external data source.\n\n**Examples:** *CA12505803*; *COL1A2*; *EH38E0063500*;  "
           },
           {
             "$ref": "#/components/parameters/detail"
@@ -704,10 +879,36 @@
         ],
         "parameters":  [
           {
-            "$ref": "#/components/parameters/entType"
+            "in":          "path",
+            "required":    true,
+            "name":        "entType",
+            "example": "RegulatoryElement",
+            "description": "A valid ***entity type*** in LDH.\n**Example:** *RegulatoryElement*",
+            "schema": {
+              "type":        "string",
+              "enum": [
+                "Gene",
+                "Variant",
+                "RegulatoryElement",
+                "AlleleSpecificEvidence",
+                "xqtlEvidence",
+                "RoadmapRegulatoryElementEvidence",
+                "ENCODERegulatoryElementEvidence",
+                "RegulatoryElementActivityKnowledge",
+                "Context",
+                "Publication"
+              ]
+            }
           },
           {
-            "$ref": "#/components/parameters/val"
+            "name":        "val",
+            "in":          "path",
+            "schema": {
+              "type":        "string"
+            },
+            "example": "EH38E0063500",
+            "required":    true,
+            "description": "***val*** can be any identifier or IRI that is accepted in LDH. This includes:\n* internal LDH `ldhId`\n* `entId` of an external data source such as ClinVar ID or gnomAD ID or links/IRIs to the resources in the external data source.\n\n**Examples:** *CA12505803*; *COL1A2*; *EH38E0063500*;  "
           },
           {
             "$ref": "#/components/parameters/detail"
@@ -721,7 +922,7 @@
   },
   "components": {
     "parameters": {
-      "detail": {
+      "detail":    {
         "name":        "detail",
         "in":          "query",
         "schema": {
@@ -736,7 +937,7 @@
         },
         "description": "The detail level requested by the query.\n* ***low*** - Only requests identifier level info for the entity. The `ld` and `ldFor` properties show only the counts for each linked entity type.\n* ***med*** - (default) - The `ld` and `ldFor` show identifier level info for linked entities.\n* ***high*** - All details are shown for the entity as well as for `ld` and `ldFor` linked entities.\n* ***noLd*** - High level of detail for the entity; does not return any info about linked entities.",
       },
-      "ids":    {
+      "ids":       {
         "name":        "ids",
         "in":          "query",
         "schema": {
@@ -744,7 +945,7 @@
         },
         "description": "Comma separated list of ***identifiers***. This query param allows batch search of a list of identifiers.\n**Example:** *CA14403822,CA13697882,CA12505803*"
       },
-      "types":  {
+      "types":     {
         "name":        "types",
         "in":          "query",
         "schema": {
@@ -764,7 +965,7 @@
         },
         "description": "Comma separated list of ***entity types*** \n* Allows filtering the response to show certain entity types only\n\n**Example:** xqtlEvidence,Publication",
       },
-      "fields": {
+      "fields":    {
         "name":        "fields",
         "in":          "query",
         "schema": {
@@ -772,7 +973,7 @@
         },
         "description": "Comma separated list of ***fields*** to retrieve. \n\n**Example:** *entId,ldhId,entContent.source*"
       },
-      "pg":     {
+      "pg":        {
         "in":          "query",
         "schema": {
           "type":        "integer",
@@ -780,7 +981,7 @@
         "description": "***Page Number*** - the page to be retrieved. Default 1",
         "name":        "pg",
       },
-      "pgSize": {
+      "pgSize":    {
         "name":        "pgSize",
         "in":          "query",
         "schema": {
@@ -788,7 +989,7 @@
         },
         "description": "***Page Size*** - Number of results in each page. Range from 1-250. Default 250",
       },
-      "val":    {
+      "val":       {
         "name":        "val",
         "in":          "path",
         "schema": {
@@ -796,8 +997,7 @@
         },
         "example": "EH38E0063500",
         "required":    true,
-        "description": "***val*** can be any identifier or IRI that is accepted in LDH. This includes:\n* internal LDH `ldhId`\n* `entId` of an external data source such as ClinVar ID or gnomAD ID or links/IRIs to the resources in the external data source.\n\n**Examples:** *CA12505803*; *COL1A2*; *EH38E0063500*; *41889804*;  "
-        "description": "***val*** can be any identifier or IRI that is accepted in LDH. This includes:\n* internal LDH `ldhId`\n* `entId` of an external data source such as ClinVar ID or gnomAD ID.\n\n**Examples:** *CA12505803*; *COL1A2*; ; *EH38E0063500*; *41889804*;  "
+        "description": "***val*** can be any identifier or IRI that is accepted in LDH. This includes:\n* internal LDH `ldhId`\n* `entId` of an external data source such as ClinVar ID or gnomAD ID or links/IRIs to the resources in the external data source.\n\n**Examples:** *CA12505803*; *COL1A2*; *EH38E0063500*;  "
       },
       "entType":   {
         "in":          "path",
