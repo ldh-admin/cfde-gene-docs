@@ -794,13 +794,15 @@
         "schema": {
           "type":        "string"
         },
+        "example": "EH38E0063500",
         "required":    true,
-        "description": "***val*** can be any identifier or IRI that is accepted in LDH. This includes:\n* internal LDH `ldhId`\n* `entId` of an external data source such as ClinVar ID or gnomAD ID or links/IRIs to the resources in the external data source.\n\n**Examples:** *CA12505803*; *COL1A2*; *41889804*;  "
+        "description": "***val*** can be any identifier or IRI that is accepted in LDH. This includes:\n* internal LDH `ldhId`\n* `entId` of an external data source such as ClinVar ID or gnomAD ID or links/IRIs to the resources in the external data source.\n\n**Examples:** *CA12505803*; *COL1A2*; ; *EH38E0063500*; *41889804*;  "
       },
       "entType":   {
         "in":          "path",
         "required":    true,
         "name":        "entType",
+        "example": "RegulatoryElement",
         "description": "A valid ***entity type*** in LDH.\n**Example:** *RegulatoryElement*",
         "schema": {
           "type":        "string",
