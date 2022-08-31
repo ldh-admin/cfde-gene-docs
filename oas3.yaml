@@ -572,15 +572,17 @@ components:
       schema:
         type: string
       required: true
+      example: EH38E0063500
       description: |-
         ***val*** can be any identifier or IRI that is accepted in LDH. This includes:
         * internal LDH `ldhId`
-        * `entId` of an external data source such as ClinVar ID or gnomAD ID or links/IRIs to the resources in the external data source.
+        * `entId` of an external data source such as ClinVar ID or gnomAD ID.
 
-        **Examples:** *CA12505803*; *COL1A2*; *41889804*;  
+        **Examples:** *CA12505803*; *COL1A2*; *EH38E0063500*;
     entType:
       in: path
       required: true
+      example: RegulatoryElement
       name: entType
       description: |-
         A valid ***entity type*** in LDH.
